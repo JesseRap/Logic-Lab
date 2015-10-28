@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Truth Table</title>
+    <link rel="stylesheet" type='text/css' href='styles.css'>
+    <script src="modal-tableau-js.js"></script>
+    <script src="truth-table-calc.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+    
+<body>
+    
+    <div class="jumbotron">
+        <div class='container-fluid'>
+            
+            <h1>Truth Table Generator</h1>
+            
+        
+            <ul class="nav nav-tabs">
+            <li role="presentation"><a href="tableauGenerator.html">Tableau Generator</a></li>
+            <li role="presentation" class="active"><a href="truthTable.html">Truth Table Generator</a></li>
+            <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
+                    <li role="presentation"><a href="notationPage.html">Polish Notation</a></li>
+                    <li role="presentation"><a href="modalInfo.html">Modal Systems</a></li>
+                    <li role="presentation"><a href="examples.html">Example Tautologies</a></li>
+                </ul>
+                </li>
+           
+
+            </ul>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="container">
+        <div class="row">
+ 
+            <div class="col-sm-3 column" id='leftColumn'>
+                <p style="font-size:small">Enter propositions in standard or Polish notation.<br>"If (p and q) then r" <=> "CKpqr"</p>
+                <table id="inputForm1" class='different'>
+                    
+                    
+                    <tr class='different'>
+                        <td class='different'>
+
+                <input type="text" class='text different' id="inputProp" onkeydown="submitPropFunction()" style="float:left"> </td><td class='different'>
+                        <br><br>
+                <button id="propAddButton" onclick="submitProp()" type="button" class="btn btn-default btn-sm">Enter Proposition</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <br>
+                <button id="resetButton" onclick="resetTable()" type="button" class="btn btn-default">RESET</button>
+                <br>
+                <br>
+
+  
+            </div>
+        
+
+    
+            <div class="col-sm-8 col-sm-offset-1" id="rightColumn">
+                
+                
+            <h1 id='tableHeader' class='otherDiff'><b>TRUTH TABLE</b></h1>
+                <p id='resultLine'><b>The proposition is: </b></p>
+        
+            <div class='mainTableau' id="tableauContainer2">
+
+
+                
+            
+
+                <div id='tableDiv'>
+                    <table id="truthTable">
+                    
+                    </table>
+      
+
+
+
+                </div>
+
+            </div>
+    
+
+        
+
+                </div>
+            </div>
+        </div>
+    
+</body>
+</html>

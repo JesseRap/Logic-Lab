@@ -1,0 +1,285 @@
+body {
+    background-color: mintcream !important;
+}
+
+h1,p,h3 {
+    text-align: center;
+    color: cornflowerblue !important;
+}
+
+.diff {
+    color: darkblue !important;
+}
+#tableHeader {
+    margin: 5px;
+}
+
+.different {
+    float: none !important; 
+}
+
+
+
+#operatorTable td {
+    width:150px;  
+}
+#exampleTable {font-size: 18px;}
+#exampleTable tr {border-bottom: solid 1px;}
+#operatorTable {margin: auto; font-size: 18px;}
+
+.ModalTable th {
+    text-align: center;
+}
+
+#RuleTH {
+    vertical-align: bottom
+}
+
+.ModalTable {
+    width: auto;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+#operatorTable tr, .ModalTable tr {
+    border-bottom: solid 1px;
+    border-collapse: collapse;
+}
+
+#polishHeader::first-letter { 
+}
+.r {text-align: right !important;}
+.r2 {text-align: right !important; width: 20%;}
+#operatorTable td, #exampleTable td {text-align: left;}
+
+.different td, .different tr {
+    float: none !important;
+    display: inline;    
+}
+
+.otherDiff{
+    color:darkblue!important;
+}
+
+#premiseTable, #conclusionTable {
+}
+
+#premiseTable div, #conclusionTable div {
+}
+
+p {
+    font-size: large;
+}
+
+#ModalInfoCol p {
+    font-size: medium;
+}
+
+.container {
+    margin: auto;
+}
+
+#tableauContainer {
+    box-shadow: 0 0 0 3px hsl(0, 0%, 80%);
+    width: 100%;
+    min-height: 300px;
+    overflow-x: auto;
+    margin-left: 0px;
+    margin-bottom: 20px;
+    border: 3px solid #6495ED;
+    background-color: white;
+}
+
+#tableauContainer2 {
+    box-shadow: 0 0 0 3px hsl(0, 0%, 80%);
+    width: 100%;
+    min-height: 140px;
+    overflow-x: auto;
+    margin-left: 0px;
+    margin-bottom: 20px;
+    border: 3px solid #6495ED;
+    background-color: white;
+}
+
+#tableauDiv, #tableDiv {
+    width: 100%;
+    margin: auto;
+    max-width: 1000px;
+}
+
+
+#premiseAddButton {
+    background-color: cyan;
+    margin:5px;
+}
+
+/*
+#resetButton {
+    box-shadow: 
+        0 0 0 5px indianred,
+        0 0 0 10px hsl(0, 0%, 90%);
+    background-color: black;
+    color: red;
+    text-emphasis;
+    font-weight:bolder;
+    
+}
+*/
+
+#conclAddButton {
+    background-color: forestgreen;
+    color: lightyellow;
+    margin:5px;
+}
+
+.text {
+    width: 100%;
+}
+
+div {
+    text-align: center;
+}
+
+#tableauDiv tr, #tableDiv tr { display: block; float: left}
+#tableauDiv th, #tableauDiv td, #tableDiv th, #tableDiv td { display: block; height: 30px}
+#tableauDiv {opacity: 1}
+
+.column {
+    border: 3px solid #6495ED;
+    /*outline-offset: 5px;*/
+}
+
+.dropdown:hover .dropdown-menu {
+display: block;
+}
+
+#truthTable td {
+    border-bottom: 1px solid black;
+}
+
+#inputForm1 {
+    border: 1;
+    width: 100%;
+    float: none !important;
+    margin-top: 10px;
+}
+
+.propLists {
+}
+
+#propAddButton {
+    background-color: forestgreen;
+    color: lightyellow;
+}
+
+tr, td {
+    text-align: center;
+}
+
+.propLists tr {border: solid; height: 30px;}
+
+.nav {
+    display: inline-block;
+}
+
+.jumbotron {
+    height: 180px;
+    position: relative;
+    background-color: cornsilk !important;
+}
+
+.container-fluid {
+    position: relative;
+    margin-top: -20px;
+}
+
+#leftColumn {
+    box-shadow:
+    0 0 0 5px hsl(0, 0%, 80%),
+    0 0 0 10px hsl(0, 0%, 90%);
+    background-color: ghostwhite
+}
+
+#rightColumn {
+    border: 3px solid #6495ED;
+    padding-top: 10px;
+    box-shadow:
+    0 0 0 5px hsl(0, 0%, 80%),
+    0 0 0 10px hsl(0, 0%, 90%);
+    background-color: ghostwhite
+}
+
+#radioLabel {
+    margin-right: 10px;
+    padding-top: 2px;
+}
+
+#radioGroup {
+    box-shadow: 0 0 0 3px hsl(0, 0%, 80%);
+    margin: auto;
+    padding: 2px;
+    margin-bottom: 10px;
+    border: 3px solid #6495ED;
+    width: 100%;
+    background-color: white;
+}
+
+.radio-inline {
+    padding-top: 2px;
+    padding-right: 5px;
+}
+
+#ExampleList {
+    width: auto;
+    margin: auto;
+    font-size: x-large;
+}
+
+/*Used to put a transparent background image*/
+.random {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.08;
+    background-image: url('https://larvalsubjects.files.wordpress.com/2008/11/0198610130truth-function1.jpg');
+    background-repeat: repeat;
+    background-position: 50% 0;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: contain;
+}
+
+#truthTable {
+    opacity: 1 !important;
+    border-collapse: collapse;
+    margin: auto;
+    box-shadow: 
+        0 0 0 5px hsl(0, 0%, 80%),
+        0 0 0 10px hsl(0, 0%, 90%);
+    visibility: hidden;
+}
+
+#truthTable td {
+    padding: 5px;
+    border-right: 2px solid black;
+    border-right-width: medium
+}
+#tableDiv {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    vertical-align:middle
+}
+
+#truthTable td {
+    border-collapse: collapse;
+    border: 1px solid black;    
+}
+
+;

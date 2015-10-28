@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tableau Generator</title>
+    <link rel="stylesheet" type='text/css' href='styles.css'>
+    <script src="modal-tableau-js.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+    
+<body>
+    
+    <div class="jumbotron">
+        <div class='container-fluid'>
+            
+            <h1>Tableau Generator</h1>
+            
+        
+            <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="tableauGenerator.html">Tableau Generator</a></li>
+            <li role="presentation"><a href="truthTable.html">Truth Table Generator</a></li>
+            <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
+                    <li role="presentation"><a href="notationPage.html">Polish Notation</a></li>
+                    <li role="presentation"><a href="modalInfo.html">Modal Systems</a></li>
+                    <li role="presentation"><a href="examples.html">Example Tautologies</a></li>
+                </ul>
+                </li>
+           
+
+            </ul>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="container">
+        <div class="row">
+ 
+            <div class="col-sm-3 column" id='leftColumn'>
+                <p style="font-size:small">Enter propositions in standard or Polish notation.<br>"If (p and q) then r" <=> "CKpqr"</p>
+                <table id="inputForm1" class='different'>
+                    <tr class='different'>
+                        <td class='different'>
+                <input type="text" class='text different' id="inputPremise" onkeydown="submitPremiseFunction()" style="float:left">
+                          </td>  <td class='different'>
+                <button id="premiseAddButton" onclick="submitPremises()" type="button" class="btn btn-default btn-sm">Add Premise</button>
+                        </td>
+                    </tr>
+                    
+                    
+                    <tr class='different'>
+                        <td class='different'>
+
+                <input type="text" class='text different' id="inputConclusion" onkeydown="submitConclusionFunction()" style="float:left"> </td><td class='different'>
+                <button id="conclAddButton" onclick="submitConclusion()" type="button" class="btn btn-default btn-sm">Enter Conclusion</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <br>
+                <button id="resetButton" onclick="resetTableau()" type="button" class="btn btn-default">RESET</button>
+                <br>
+                <div class="propLists">
+                    <h3 class='diff'><b>PREMISES</b></h3>
+
+                    <table class="table" id="premiseTable">
+
+
+
+                    </table>
+
+
+                    <h3 class='diff'><b>CONCLUSIONS</b></h3>
+                    <table class="table" id="conclusionTable">
+
+
+                    </table>
+                </div>
+            </div>
+        
+
+    
+            <div class="col-sm-8 col-sm-offset-1" id="rightColumn">
+                <div class="input-group" id="radioGroup">
+                <label for="logicSystem" id="radioLabel">Select Modal System: </label>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='NM' onclick="submitRadio()" checked>Non-modal</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='K' onclick="submitRadio()">K</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='D' onclick="submitRadio()">D</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='T' onclick="submitRadio()">T</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='K4' onclick="submitRadio()">K4</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='B' onclick="submitRadio()">B</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='S4' onclick="submitRadio()">S4</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="optradio" value='S5' onclick="submitRadio()">S5</label>
+                </div>
+                </div>
+                
+            <h1 class='otherDiff'><b>TABLEAU</b></h1>
+                <p id='resultLine'><b>The argument is: </b></p>
+        
+            <div class='mainTableau' id="tableauContainer">
+
+
+                
+            
+
+                <div id='tableauDiv'>
+      
+
+
+
+                </div>
+
+            </div>
+    
+
+        
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

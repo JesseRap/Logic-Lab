@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modal Info</title>
+    <link rel="stylesheet" type='text/css' href='styles.css'>
+    <script src="modal-tableau-js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+    
+<body>
+    
+    <div class="jumbotron">
+        <div class='container-fluid'>
+            
+            <h1>Tableau Generator</h1>
+        </div>
+        
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="tableauGenerator.html">Tableau Generator</a></li>
+            <li role="presentation"><a href="truthTable.html">Truth Table Generator</a></li>
+            <li role="presentation" class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
+                    <li role="presentation"><a href="notationPage.html">Polish Notation</a></li>
+                    <li role="presentation"><a href="modalInfo.html">Modal Systems</a></li>
+                    <li role="presentation"><a href="examples.html">Example Tautologies</a></li>
+                </ul>
+                </li>
+           
+
+            </ul>
+        
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" id="ModalInfoCol">
+                <p>In modal systems, two dual operators are introduced: Necessity ('M') and Possibility ('L'). Propositions are evaluated at different "possible worlds" (here indicated numerically) which are connected by an accessibility relation. If 'Mp' ('Necessarily p') is true at a given possible world, then 'p' is true at all <i>accessible</i> possible worlds. If 'Lp' ('Possibly p') is true at a world, then 'p' is true at <i>some</i> accessible possible world.</p>
+                <p>In the simplest modal system, K, no further assumptions are made about the accessibility relation. However, this basic system does not appear capable of modeling all modal talk. Other systems of modal logic are introduced by adding constraints on the accessibility relation, or by introducing special inference rules. In the strongest modal system, S5, the accessibility relation is reflexive, transitive, and symmetric (i.e., it is an <i>equivalence relation</i>). <br><small>NOTE: The following breakdown of logical systems is derived from (Fitting & Mendelsohn 1998).</small></p>
+                <p>In modal tableaux, worlds are assigned numerical indices as "names." The indices convey information about the accessibility relation. Thus, for any world labeled <i>n</i>, all worlds labeled <i>n.m</i> are accessible to it. A branch of the tableau is closed just in case it contains a contradiction <i>at a given world</i>.</p>
+                <p><small>NOTE: If a tableau begins to repeat itself, without closing, then the tableau generator will terminate and the argument will be deemed invalid. This is because in some cases where a branch fails to close, modal rules can be iteratively applied indefinitely.</small></p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-8">
+                <table id="ModalRulesTable" class="ModalTable">
+                    <tr><th>Special Rule <br>Name</th>
+                        <th id="RuleTH">Rule</th><th>Associated Principle</th></tr>
+                    <tr>
+                        <td>D</td>
+                        <td><i>n</i>,Mp &#10144; <i>n</i>,Lp</td>
+                        <td>Seriality</td>
+                    </tr>
+                    <tr>
+                        <td>T / M</td>
+                        <td><i>n</i>,Mp &#10144; <i>n</i>,p</td>
+                        <td>Reflexivity</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td><i>n.m</i>,Mp &#10144; <i>n</i>,p</td>
+                        <td>Symmetry</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><i>n</i>,Mp &#10144; <i>n.m</i>,Mp</td>
+                        <td>Transitivity</td>
+                    </tr>
+                    <tr>
+                        <td>4r</td>
+                        <td><i>n.m</i>,Mp &#10144; <i>n</i>,Mp</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="col-sm-4">
+                <table id="ModalSystemsTable" class="ModalTable">
+                    <tr><th>Modal System</th>
+                        <th id="RuleTH">Rules</th></tr>
+                    <tr>
+                        <td>D</td>
+                        <td><i>D</i></td>
+                    </tr>
+                    <tr>
+                        <td>T</td>
+                        <td><i>T</i></td>
+                    </tr>
+                    <tr>
+                        <td>K4</td>
+                        <td><i>4</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td><i>B, 4</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td>S4</td>
+                        <td><i>T, 4</i></td>
+                    </tr>
+                    <tr>
+                        <td>S5</td>
+                        <td><i>T, 4, 4r</i></td>
+                    </tr>
+                </table>
+            </div>
+            
+
+            
+        </div>
+
+        
+
+</body>
+</html>
