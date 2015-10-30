@@ -482,4 +482,8 @@ function resetTable() {
 
 };
 
+<<<<<<< HEAD
 $('#propAddButton').on('touchstart click', submitProp);
+=======
+$('#propAddButton').on('touchstart click', submitProp);
+>>>>>>> origin/gh-pages
