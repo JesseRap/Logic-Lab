@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Beth Tableaux</title>
+    <title>Examples</title>
     <link rel="stylesheet" type='text/css' href='styles2.css'>
     <script src="modal-tableau-js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="jqueryscript.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -38,12 +39,30 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <p class='lightText'>In constructing a tableau, we start with the premises (if any) and the NEGATION of the conclusion. If the argument is VALID, then it should NOT be possible for the premises to be true and the conclusion false. Therefore, if we accept the negation of the conclusion, we should be able to derive a contradiction. If a branch of a tableau contains a contradiction, then we say it is "closed" (indicated here with &#x2573;).</p>
-                <p class='lightText'>In the derivation, we try to break down non-atomic propositions into atomic ones or ones with negation (i.e., "literals"). Thus, we try to eliminate all binary connectives. Sometimes, reducing a binary connective requires considering two possible "states of affairs" - thus the tableau splits into two branches. For the tableau as a whole to be closed, all branches must be closed. This shows that the initial set of propositions leads to a contradiction in all cases.</p>
-                <p class='lightText'>HINT: To test a tautology, enter it as the conclusion with no premises.</p>
+                <p class='lightText'>Below, you will find examples of tauotologies (statements that are logically necessary), which you may plug in to the tableau generator. To test a tautology, you may enter it as a conclusion with no premises. Since a tautology is true independently of the state of the world, a tautological statement can be proven without any premises.</p>
+
             </div>
         </div>
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="ExampleList" class="ModalTable">
+                    <th>EXAMPLES</th>
+                    <tr><td>CCCpqpp</td></tr>
+                    <tr><td>CKAppCpqq</td></tr>
+                    <tr><td>CCpqCNqNp</td></tr>
+                    <tr><td>CMKpqKMpMq</td></tr>
+                    <tr><td>BLApqALpLq</td></tr>
+                    <tr><td>KCMpMMpCMMpMp <small>(S5-valid)</small></td></tr>
+                    <tr><td>BCpCqrCKpqr</td></tr>
+                    <tr><td>KCKApqNpqBCpCqrCKpqr</td></tr>
+                        
+                </table>
+            </div>
+        </div>
+   
     </div>
+
         
 
 </body>

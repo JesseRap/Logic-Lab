@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Polish Notation Info</title>
-    <link rel="stylesheet" type='text/css' href='styles.css'>
+    <link rel="stylesheet" type='text/css' href='styles2.css'>
     <script src="modal-tableau-js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -18,9 +18,9 @@
             <h1>Tableau Generator</h1>
         </div>
         <ul class="nav nav-tabs">
-            <li role="presentation"><a href="tableauGenerator.html">Tableau Generator</a></li>
-            <li role="presentation"><a href="truthTable.html">Truth Table Generator</a></li>
-            <li role="presentation" class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
+            <li role="presentation"><a class='darkText' href="tableauGenerator.html">Tableau Generator</a></li>
+            <li role="presentation"><a class='darkText' href="truthTable.html">Truth Table Generator</a></li>
+            <li role="presentation" class="dropdown active"><a class="dropdown-toggle darkText" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
                     <li role="presentation"><a href="notationPage.html">Polish Notation</a></li>
@@ -35,12 +35,15 @@
     </div>
     
     <div class="container">
-        <div class="row">
+        <div class="row middle">
             <div class="col-sm-12">
-                <h1 id='polishHeader'>Polish Notation Explained</h1>
-                <p>In Polish notation, or prefix notation, all operators are prefixed to their operands. Scope does not depend on parentheses.</p>
-                <p>For example, 'p and q' would be represented as 'Kpq,' where 'K' stands for 'Konjunction.'</p>
-                <div class='col-sm-4'>
+                <h1 id='polishHeader' class='lightText'>Polish Notation Explained</h1>
+                <p class='lightText'>In Polish notation, or prefix notation, all operators are prefixed to their operands. Scope does not depend on parentheses.</p>
+                <p class='lightText'>For example, 'p and q' would be represented as 'Kpq,' where 'K' stands for 'Konjunction.'</p>
+            </div>
+        </div>
+        <div class="row full">
+            <div class='col-sm-4 col-sm-offset-1'>
                 <h3>Operators</h2>
                 <table id="operatorTable">
                     <tr><td class='l'>Negation</td>
@@ -68,7 +71,7 @@
                     
                 </table>
                     </div>
-                <div class='col-sm-8'>
+                <div class='col-sm-6'>
                     <h3>Examples</h3>
                     <table id='exampleTable'>
                         
@@ -86,13 +89,13 @@
                     <tr><td class='l2'>If ((p or q) and (not p)) then q</td>
                         <td class='r2'>CKApqNpq</td>
                     </tr>
-                    <tr><td class='l2'>If &#9633(p and q) then (&#9633;p or &#9633;q)</td>
+                    <tr><td class='l2'>If (nec (p and q)) then ((nec p) and (nec q))</td>
                         <td class='r2'>CMKpqKMpMq</td>
                     </tr>
-                    <tr><td class='l2'>(&#9633p or &#9633q) implies &#9633;(p  or q)</td>
+                    <tr><td class='l2'>((nec p) or (nec q)) implies (nec (p  or q))</td>
                         <td class='r2'>CAMpMqMApq</td>
                     </tr>
-                    <tr><td class='l2'>If &#9671&#9633p then &#9633p</td>
+                    <tr><td class='l2'>If (poss (nec p)) then (nec p)</td>
                         <td class='r2'>CLMpMp</td>
                     </tr>
                     
@@ -101,7 +104,6 @@
                 </div>
             </div>
         </div>
-    </div>
     
         
 
