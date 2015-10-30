@@ -482,3 +482,4 @@ function resetTable() {
 
 };
 
+$('#propAddButton').on('touchstart click', submitProp);
