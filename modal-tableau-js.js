@@ -252,7 +252,6 @@ function tableauObj(parentdiv1) {
             } else if (propR[0]==='C' && 
                        propR[1].match(/[a-z]/)!==null) {
                 if (tableHasProp(this.toDoArray,[idx, propR.slice(1,2)])) {
-                    //alert('here');
                     this.toDoArray.push([idx,propR.slice(2)]);
 
                     this.toDoArray.splice(r,1);
@@ -543,7 +542,6 @@ function tableauObj(parentdiv1) {
                             counter2++;
                             ci++;
                             if (counter2 > 1) {
-                                //alert("RESULT TRUE");
                                 cdResult = true;
                             };
                             
@@ -617,7 +615,6 @@ function tableauObj(parentdiv1) {
                 };
             };
         };
-        //alert(['result',result3]);
         return result3;
     };
     
@@ -680,7 +677,6 @@ function tableHasProp(toDoArray6,proposition8) {
     for (v=0;v<toDoArray6.length;v++) {
         if (toDoArray6[v][0] === idx8) {
             if (toDoArray6[v][1] === prop8) {
-                //alert('returning TRUE has prop');
                 return true;
             };
         };
