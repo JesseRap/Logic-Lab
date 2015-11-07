@@ -25,6 +25,7 @@
             <li role="presentation" class="dropdown active"><a class="dropdown-toggle darkText" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
+                    <li role="presentation"><a href="resolutionInfo.html">Resolution Information</a></li>
                     <li role="presentation"><a href="notationPage.html">Polish Notation</a></li>
                     <li role="presentation"><a href="modalInfo.html">Modal Systems</a></li>
                     <li role="presentation"><a href="examples.html">Example Tautologies</a></li>
@@ -40,9 +41,11 @@
         <div class="row">
             <div class="col-sm-12">
                 
-                <p class='lightText'>In creating a proof with the resolution method, this program follows two procedures: first, a procedure that transaltes an input proposition into Conjunctive Normal Form (CNF); and a procedure known as "resolve", which takes two clauses D1 and D2, where D1 contains <em>p</em>, and D2 contains <em>Np</em>, and then adds a new clause constisting of d1 "minus" p and d2 "minus" Np. In English, we take <em>p</em> out of one clause, and <em>Np</em> out of the other one, and then combine the clauses to make a new one,</p>
+                <p class='lightText'>In creating a resoluton proof, we follow two procedures: a procedure that translates an input proposition into Conjunctive Normal Form (CNF); and a procedure known as Resolution, which takes two clauses D1 and D2, where D1 contains <em>p</em>, and D2 contains <em>Np</em>, and then adds a new clause constisting of the elements of D1 "minus" <em>p</em> and D2 "minus" <em>Np</em>. In English: we take <em>p</em> out of one clause, and <em>Np</em> out of the other one, and then combine the clauses to make a new one.</p>
                 
-                <p class="lightText">Like tableaux, resolution proofs involve proof by refutation. In a proof by refutation, the argument assumes the NEGATION of the desired conclusion, along with any (optional) premises.</p>
+                <p class="lightText">In our proofs, clauses are represented as lists of propositions. A clause (e.g., <em>[Cpq, Nq]</em>), represents the universal DISJUNCTION of its members (i.e., <em>Cpq</em> or <em>Nq</em>). In our proof, each line represents a set of clauses, where a set of clauses represents the universal CONJUNCTION of its members. For example: <b>[Cpq, Nq], [r]</b> is equivalent to: <b>((p or q) or (not q)) and r</b></p>
+                
+                <p class="lightText">Like tableaux, resolution proofs involve proof by refutation. In a proof by refutation, the proof assumes the NEGATION of the desired conclusion, along with any (optional) premises. We then convert the premises into CNF and repeatedly apply Resolution for as long as possible, or until we derive the empty clause ( <em>[ ]</em> ). If the proof derives the empty clause, then the argument is valid. If no more rules can be applied, and the empty clause has not been derived, then the argument is invalid.</p>
                 
             </div>
         </div>
