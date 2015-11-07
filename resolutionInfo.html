@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Examples</title>
+    <title>Beth Tableaux</title>
     <link rel="stylesheet" type='text/css' href='styles2.css'>
     <script src="modal-tableau-js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="jqueryscript.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -15,7 +14,7 @@
     <p id='createdBy'>Created by <a href="http://JesseRap.github.io">Jesse Rappaport</a></p>
     <div class="jumbotron">
         <div class='container-fluid'>
-            
+                        
             
             <h1>Tableau Generator</h1>
         </div>
@@ -23,7 +22,6 @@
         <ul class="nav nav-tabs">
             <li role="presentation"><a class='darkText' href="tableauGenerator.html">Tableau Generator</a></li>
             <li role="presentation"><a class='darkText' href="truthTable.html">Truth Table Generator</a></li>
-            <li role="presentation"><a class='darkText' href="resolutionProof.html">Resolution Prover</a></li>
             <li role="presentation" class="dropdown active"><a class="dropdown-toggle darkText" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
@@ -41,30 +39,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <p class='lightText'>Below, you will find examples of tauotologies (statements that are logically necessary), which you may plug in to the tableau generator. To test a tautology, you may enter it as a conclusion with no premises. Since a tautology is true independently of the state of the world, a tautological statement can be proven without any premises.</p>
-
+                
+                <p class='lightText'>In creating a proof with the resolution method, this program follows two procedures: first, a procedure that transaltes an input proposition into Conjunctive Normal Form (CNF); and a procedure known as "resolve", which takes two clauses D1 and D2, where D1 contains <em>p</em>, and D2 contains <em>Np</em>, and then adds a new clause constisting of d1 "minus" p and d2 "minus" Np. In English, we take <em>p</em> out of one clause, and <em>Np</em> out of the other one, and then combine the clauses to make a new one,</p>
+                
+                <p class="lightText">Like tableaux, resolution proofs involve proof by refutation. In a proof by refutation, the argument assumes the NEGATION of the desired conclusion, along with any (optional) premises.</p>
+                
             </div>
         </div>
-        
-        <div class="row">
-            <div class="col-sm-12">
-                <table id="ExampleList" class="ModalTable">
-                    <th>EXAMPLES</th>
-                    <tr><td>CCCpqpp</td></tr>
-                    <tr><td>CKAppCpqq</td></tr>
-                    <tr><td>CCpqCNqNp</td></tr>
-                    <tr><td>CMKpqKMpMq</td></tr>
-                    <tr><td>BLApqALpLq</td></tr>
-                    <tr><td>KCMpMMpCMMpMp <small>(S5-valid)</small></td></tr>
-                    <tr><td>BCpCqrCKpqr</td></tr>
-                    <tr><td>KCKApqNpqBCpCqrCKpqr</td></tr>
-                        
-                </table>
-            </div>
-        </div>
-   
     </div>
-
         
 
 </body>

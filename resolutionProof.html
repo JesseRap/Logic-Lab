@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tableau Generator</title>
+    <title>Resolution Prover</title>
     <link rel="stylesheet" type='text/css' href='styles2.css'>
     <script src="modal-tableau-js.js"></script>
+    <script src="resolution-js.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -17,13 +18,13 @@
         <div class='container-fluid'>
                         
             
-            <h1>Tableau Generator</h1>
+            <h1>Resolution Prover</h1>
             
         
             <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a class='darkText' href="tableauGenerator.html">Tableau Generator</a></li>
+            <li role="presentation"><a class='darkText' href="tableauGenerator.html">Tableau Generator</a></li>
             <li role="presentation"><a class='darkText' href="truthTable.html">Truth Table Generator</a></li>
-            <li role="presentation"><a class='darkText' href="resolutionProof.html">Resolution Prover</a></li>
+            <li role="presentation" class="active"><a class='darkText' href="resolutionProof.html">Resolution Prover</a></li>
             <li role="presentation" class="dropdown"><a class="dropdown-toggle darkText" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
@@ -49,9 +50,9 @@
                 <table id="inputForm1" class='different'>
                     <tr class='different'>
                         <td class='different'>
-                <input type="text" class='text different' id="inputPremise" onkeydown="submitPremiseFunction()" style="float:left">
+                <input type="text" class='text different' id="inputResPremise" onkeydown="submitResPremiseFunction()" style="float:left">
                           </td>  <td class='different'>
-                <button id="premiseAddButton" onclick="submitPremises()" type="button" class="btn btn-default btn-sm">Add Premise</button>
+                <button id="resPremiseAddButton" onclick="submitResPremise()" type="button" class="btn btn-default btn-sm">Add Premise</button>
                         </td>
                     </tr>
                     
@@ -59,8 +60,8 @@
                     <tr class='different'>
                         <td class='different'>
 
-                <input type="text" class='text different' id="inputConclusion" onkeydown="submitConclusionFunction()" style="float:left"> </td><td class='different'>
-                <button id="conclAddButton" onclick="submitConclusion()" type="button" class="btn btn-default btn-sm">Enter Conclusion</button>
+                <input type="text" class='text different' id="inputConclusion" onkeydown="submitResConclFunction()" style="float:left"> </td><td class='different'>
+                <button id="resConclAddButton" onclick="submitResConcl()" type="button" class="btn btn-default btn-sm">Enter Conclusion</button>
                         </td>
                     </tr>
                 </table>
@@ -90,35 +91,9 @@
 
     
             <div class="col-sm-8 col-sm-offset-1" id="rightColumn">
-                <div class="input-group" id="radioGroup">
-                <label for="logicSystem" id="radioLabel">Select Modal System: </label>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='NM' onclick="submitRadio()" checked>Non-modal</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='K' onclick="submitRadio()">K</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='D' onclick="submitRadio()">D</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='T' onclick="submitRadio()">T</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='K4' onclick="submitRadio()">K4</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='B' onclick="submitRadio()">B</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='S4' onclick="submitRadio()">S4</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="optradio" value='S5' onclick="submitRadio()">S5</label>
-                </div>
-                </div>
                 
-            <h1 class='otherDiff'><b>TABLEAU</b></h1>
+                
+            <h1 class='otherDiff'><b>PROOF</b></h1>
                 <p id='resultLine'><b>The argument is: </b></p>
         
             <div class='mainTableau' id="tableauContainer">
@@ -127,9 +102,19 @@
                 
             
 
-                <div id='tableauDiv'>
-      
+                <div id='resolutionDiv'>
+                    
+                    <table id='masterResTable'>
+                        <tr><td id="resTableTD">
+                        <table id='resTable'>
 
+                        </table>
+                            </td><td id="noteTableTD"><br>
+                        <table id="noteTable">
+                            
+                        </table>
+                            </td></tr>
+                    </table>
 
 
                 </div>
