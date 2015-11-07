@@ -482,6 +482,10 @@ function resetTable() {
 
 };
 
-$('#propAddButton').on('touchstart click', submitProp);
-$('#propAddButton').on('click tap', submitProp);
+$(function() {
+    ('#propAddButton').on('touchstart click', submitProp);
+};
+$(function() {
+    '#propAddButton').on('click tap', submitProp);
+};
 
