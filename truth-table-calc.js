@@ -41,10 +41,12 @@ function submitProp() {
     // Submit the entered statement and generate the truth table
     
     console.log("submitProp()");
-    resetTable();
-    document.getElementById("truthTable").style.visibility = "visible";
+    
+    
     var statement = 
         document.getElementById("inputProp").value;
+    resetTable();
+    document.getElementById("truthTable").style.visibility = "visible";
     // Try to validate the statement in Polish notation
     if (!validateInput(statement)) {
         // Otherwise, try translating to Polish and then validating
@@ -477,6 +479,7 @@ function resetTable() {
     tableList = [];
     tableSet = new Object;
     lang = 'polish';
+    
 
     document.getElementById("resultLine").innerHTML = "<b>The proposition is: </b>";
 
@@ -484,8 +487,8 @@ function resetTable() {
 
 $(function() {
     $('#propAddButton').on('touchstart click', submitProp);
-};
+});
 $(function() {
     $('#propAddButton').on('click tap', submitProp);
-};
+});
 
