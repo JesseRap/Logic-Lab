@@ -42,8 +42,8 @@ function translate(inputString) {
     if (inputString[-1] === ')') {
         if (inputString.match(/\(/g) === null) {
             return translate(inputString.slice(1));
-        } else if (inputString.match(/)/g).length === 
-                   inputString.match(/(/g).length+1) {
+        } else if (inputString.match(/\)/g).length === 
+                   inputString.match(/\(/g).length+1) {
             return inputString.slice(0,-1);
         };
     };
