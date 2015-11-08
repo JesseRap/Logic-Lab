@@ -3,9 +3,10 @@ var tableSet = new Object;
 var lang = 'polish';
 
 
-function submitPropFunction() {
+
+function submitPropFunction(inputKey) {
     // Adds the proposition on "Enter"
-    if(window.event.keyCode=='13'){
+    if(inputKey == '13'){
         submitProp();
     };
 };
@@ -54,9 +55,11 @@ function submitProp() {
         console.log(newPremise);
         if (/undefined/.test(newPremise)) {
             alert("Invalid input");
+            resetTable();
             return;
         } else if (!validateInput(newPremise)) {
             alert("Invalid input");
+            resetTable();
             return;
         } else {
             convert(statement);
@@ -279,7 +282,7 @@ function compute(inputString, state) {
     if (inputString[-1] === ')') {
         if (inputString.match(/\(/g) === null) {
             return compute(inputString.slice(0,-1),state);
-        } else if (inputString.match(/)/g).length === inputString.match(/(/g).length+1) {
+        } else if (inputString.match(/\)/g).length === inputString.match(/\(/g).length+1) {
             return compute(inputString.slice(0,-1), state);
         };
     };
@@ -480,15 +483,25 @@ function resetTable() {
     tableSet = new Object;
     lang = 'polish';
     
+    document.getElementById("inputProp").value = '';
 
     document.getElementById("resultLine").innerHTML = "<b>The proposition is: </b>";
 
 };
 
+/*
 $(function() {
     $('#propAddButton').on('touchstart click', submitProp);
 });
 $(function() {
     $('#propAddButton').on('click tap', submitProp);
+});
+*/
+
+$(function() {
+    $("#inputProp").on('keydown', function(event) {
+        var inputKey = 'which' in event? event.which : event.keyCode;
+        submitPropFunction(inputKey);
+    })
 });
 
