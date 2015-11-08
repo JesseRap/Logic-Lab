@@ -123,8 +123,8 @@ function convert(inputString) {
         if (inputString.match(/\(/g) === null) {
             convert(inputString.slice(1));
             return;
-        } else if (inputString.match(/)/g).length === 
-                   inputString.match(/(/g).length+1) {
+        } else if (inputString.match(/\)/g).length === 
+                   inputString.match(/\(/g).length+1) {
             convert(inputString.slice(0,-1));
             return;
         };
