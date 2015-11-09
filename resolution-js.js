@@ -485,7 +485,7 @@ function showResTable() {
     //    showList[y] = showList[y].toString();
     //};
     $(tdSet).each(function(index, element) {
-        $(this).delay(d).animate({ fontSize: "20px", opacity: "1"}, "slow");
+        $(this).delay(d).animate({ fontSize: "18px", opacity: "1"}, "slow");
         d += 750
         if (noteList.length > 0) {
             var newTR1 = document.createElement("TR");
@@ -494,7 +494,7 @@ function showResTable() {
             newTD1.innerHTML += noteList.shift();
             newTR1.appendChild(newTD1);
             noteTable.appendChild(newTR1);
-            $(newTD1).delay(d).animate({ fontSize: "20px", opacity: "1"}, "slow");
+            $(newTD1).delay(d).animate({ fontSize: "18px", opacity: "1"}, "slow");
             if (noteLightList.length > 0) {
                 setTimeout(lightResTable,d);
                 setTimeout(function(){rowN++;},d);
