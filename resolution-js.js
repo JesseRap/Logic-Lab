@@ -339,27 +339,33 @@ function resolution(inputString) {
 
 function submitResConcl() {
     var conclusion = 
-        document.getElementById("inputConclusion").value;
-    document.getElementById("inputConclusion").value='';
+        document.getElementById("inputResConclusion").value;
+    document.getElementById("inputResConclusion").value='';
     if (!validateInput(conclusion)) {
         conclusion = translate(conclusion);
         if (/undefined/.test(conclusion)) {
             alert("Invalid input");
-            document.getElementById("inputConclusion").value='';
+            document.getElementById("inputResConclusion").value='';
             return;
         };
         if (!validateInput(conclusion)) {
             alert("Invalid input");
-            document.getElementById("inputConclusion").value='';
+            document.getElementById("inputResConclusion").value='';
             return;
         };
     };
+    var theTable = document.getElementById("conclusionTable");
+    var newRow = theTable.insertRow(0);
+    newRow.style.width = 'inherit';
+    newRow.style.overflow = 'hidden';
+    var newTD = newRow.insertCell(0);
+    newTD.style.width = 'inherit';
+    newTD.style.overflow = 'hidden';
+    newTD.innerHTML += conclusion;
     theClauseArray.push(['N'+conclusion]);
-    console.log(alert(JSON.stringify(theClauseArray)));
     var result1 = CNFConvert(theClauseArray);
-    checkResClosed(result1)?document.getElementById("resultLine").innerHTML+="<b>VALID</b>":document.getElementById("resultLine").innerHTML+="<b>INVALID</b>";
+    checkResClosed(result1)?document.getElementById("resultLine").innerHTML+="<b>VALID!</b>":document.getElementById("resultLine").innerHTML+="<b>INVALID</b>";
     disableResButtons();
-    console.log(document.getElementById('resTable').innerHTML);
     showResTable();
 };
 
@@ -381,7 +387,7 @@ function resetTableau() {
     document.getElementById("conclusionTable").innerHTML = "";
     document.getElementById("resultLine").innerHTML = "<b>The argument is: </b>";
     document.getElementById("inputResPremise").value='';
-    document.getElementById("inputConclusion").value='';
+    document.getElementById("inputResConclusion").value='';
 };
 
 function disableResButtons() {
@@ -391,9 +397,9 @@ function disableResButtons() {
     document.getElementById("resConclAddButton").disabled=
         true;
     document.getElementById("inputResPremise").onkeydown='';
-    document.getElementById("inputConclusion").onkeydown='';
+    document.getElementById("inputResConclusion").onkeydown='';
     document.getElementById("inputResPremise").removeEventListener("keydown",submitResPremiseFunction);
-    document.getElementById("inputConclusion").removeEventListener("keydown",submitResConclFunction);
+    document.getElementById("inputResConclusion").removeEventListener("keydown",submitResConclFunction);
     var buttonList = document.getElementsByClassName("buttonClass");
     for (i=0;i<buttonList.length;i++) {
         buttonList[i].disabled = true;
@@ -407,7 +413,7 @@ function enableButtons() {
     document.getElementById("resConclAddButton").disabled=
         false;
     document.getElementById("inputResPremise").addEventListener("keydown",submitResPremiseFunction);
-    document.getElementById("inputConclusion").addEventListener("keydown",submitResConclFunction);
+    document.getElementById("inputResConclusion").addEventListener("keydown",submitResConclFunction);
 };
 
 function submitResPremise() {
@@ -440,11 +446,9 @@ function addResPremise() {
     newTD.innerHTML += newPremise;
     newTD.style.float = "left";
     newTD.style.width = "90%";
-    //newTD.style.opacity = '0';
     
     newRow.appendChild(newTD);
     var newTDX = document.createElement("TD");
-    //newTDX.style.opacity = '0';
     newTDX.style.width = "10%";
     newTDX.style.float = "right";
     newRow.appendChild(newTDX);
@@ -456,20 +460,18 @@ function addResPremise() {
     newTDXButton.style.border = '0';
     newTDX.appendChild(newTDXButton);
     newTDXButton.addEventListener("click", function(){theTable.deleteRow(newRow.rowIndex); theClauseArray.splice(theClauseArray.indexOf([newTD.innerHTML]),1)});
-    //alert(['adding ',newPremise]);
     theClauseArray.push([newPremise]);
-    //alert(theTable.lastChild.innerHTML);
 };
 
-function submitResPremiseFunction() {
-    if(window.event.keyCode=='13'){
+function submitResPremiseFunction(inputKey) {
+    if(inputKey == '13'){
         submitResPremise();
     };
 };
 
-function submitResConclFunction() {
+function submitResConclFunction(inputKey) {
     // Adds the conclusion on "Enter"
-    if(window.event.keyCode=='13'){
+    if(inputKey == '13') {
         submitResConcl();
     };
 };
@@ -577,4 +579,16 @@ function lightResTable() {
 };
 
 
+$(function() {
+    $("#inputResConclusion").on('keydown', function(event) {
+        var inputKey = 'which' in event? event.which : event.keyCode;
+        submitResConclFunction(inputKey);
+    })
+});
 
+$(function() {
+    $("#inputResPremise").on('keydown', function(event) {
+        var inputKey = 'which' in event? event.which : event.keyCode;
+        submitResPremiseFunction(inputKey);
+    })
+});

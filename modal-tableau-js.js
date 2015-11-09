@@ -279,6 +279,7 @@ function tableauObj(parentdiv1) {
         if ( (proposition[1][0] == 'K') || 
             (proposition[1][0]==='C' && proposition[1][1].match(/[a-z]/)!==null) ||
             (proposition[1].slice(0,2) == 'NN') ||
+            (proposition[1].slice(0,2) == 'NC') ||
             (proposition[1].slice(0,2) === 'NA') ||
             (proposition[1][0] === 'C' && !tableHasProp(this.memoryBank,[proposition[0],proposition[1].slice(1,2)])) ||
             (proposition[1][0] === 'A') ||
@@ -711,24 +712,10 @@ function getPos(el) {
     return [lx,ly,lx+width,ly+height];
 };
 
-function lineThrough2() {
+function lineThrough() {
     // Adds a line through the propositions in the linelist
     var t = lineList.shift();
     t.style.textDecoration = 'line-through';
-};
-
-function lineThrough(prop) {
-    // Finds prop in the table and changes style to strikethrough
-    var theTable = document.getElementById('tableauDiv').firstChild;
-    var tdSet = $('#tableauDiv').find("td");
-    for (i=0;i<tdSet.length;i++) {
-        if (tdSet[i].innerHTML === prop) {
-            if (tdSet[i].style.textDecoration !== 'line-through') {
-                tdSet[i].style.textDecoration = 'line-through';
-                return;
-            };
-        };
-    };
 };
 
 
@@ -773,7 +760,7 @@ function showTable() {
         } else {
             $(this).delay(d).animate({ fontSize: "20px", opacity: "1"}, "fast");
             if (element.innerHTML !== '\u2573') {
-                window.setTimeout(lineThrough2,d,showList.shift());
+                window.setTimeout(lineThrough,d,showList.shift());
             };
         };
         d += 500;
@@ -875,11 +862,11 @@ function addPremise() {
     newTD.innerHTML += newPremise;
     newTD.style.float = "left";
     newTD.style.width = "90%";
-    newTD.style.opacity = '0';
+    newTD.style.opacity = '1';
     
     newRow.appendChild(newTD);
     var newTDX = document.createElement("TD");
-    newTDX.style.opacity = '0';
+    newTDX.style.opacity = '1';
     newTDX.style.width = "10%";
     newTDX.style.float = "right";
     newRow.appendChild(newTDX);
@@ -1023,16 +1010,16 @@ function getOperands(string) {
 };
 
 
-function submitPremiseFunction() {
+function submitPremiseFunction(inputKey) {
     // Adds a premise to the premise list on "Enter"
-    if(window.event.keyCode=='13'){
+    if(inputKey == '13'){
         submitPremises();
     };
 };
 
-function submitConclusionFunction() {
+function submitConclusionFunction(inputKey) {
     // Adds the conclusion on "Enter"
-    if(window.event.keyCode=='13'){
+    if(inputKey == '13'){
         submitConclusion();
     };
 };
@@ -1048,4 +1035,18 @@ function submitConclusion() {
     addConclusion();
     document.getElementById("inputConclusion").value='';
 };
+
+$(function() {
+    $("#inputPremise").on('keydown', function(event) {
+        var inputKey = 'which' in event? event.which : event.keyCode;
+        submitPremiseFunction(inputKey);
+    })
+});
+
+$(function() {
+    $("#inputConclusion").on('keydown', function(event) {
+        var inputKey = 'which' in event? event.which : event.keyCode;
+        submitConclusionFunction(inputKey);
+    })
+});
 

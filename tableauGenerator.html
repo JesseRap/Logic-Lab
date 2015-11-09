@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Tableau Generator</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type='text/css' href='styles2.css'>
-    <script src="modal-tableau-js.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="modal-tableau-js.js" type="text/javascript"></script>
+    <script src="truth-table-calc.js" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
     
@@ -50,7 +51,7 @@
                 <table id="inputForm1" class='different'>
                     <tr class='different'>
                         <td class='different'>
-                <input type="text" class='text different' id="inputPremise" onkeydown="submitPremiseFunction()" style="float:left">
+                <input type="text" class='text different' id="inputPremise" style="float:left" autocapitalize="none" autocorrect="off" autocomplete="off">
                           </td>  <td class='different'>
                 <button id="premiseAddButton" onclick="submitPremises()" type="button" class="btn btn-default btn-sm">Add Premise</button>
                         </td>
@@ -60,7 +61,7 @@
                     <tr class='different'>
                         <td class='different'>
 
-                <input type="text" class='text different' id="inputConclusion" onkeydown="submitConclusionFunction()" style="float:left"> </td><td class='different'>
+                <input type="text" class='text different' id="inputConclusion" style="float:left"> </td><td class='different' autocapitalize="none" autocorrect="off" autocomplete="off">
                 <button id="conclAddButton" onclick="submitConclusion()" type="button" class="btn btn-default btn-sm">Enter Conclusion</button>
                         </td>
                     </tr>

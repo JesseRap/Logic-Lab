@@ -2,11 +2,10 @@
 <html>
 <head>
     <title>Beth Tableaux</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type='text/css' href='styles2.css'>
-    <script src="modal-tableau-js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
     
@@ -22,6 +21,7 @@
         <ul class="nav nav-tabs">
             <li role="presentation"><a class='darkText' href="tableauGenerator.html">Tableau Generator</a></li>
             <li role="presentation"><a class='darkText' href="truthTable.html">Truth Table Generator</a></li>
+            <li role="presentation"><a class='darkText' href="resolutionProof.html">Resolution Prover</a></li>
             <li role="presentation" class="dropdown active"><a class="dropdown-toggle darkText" data-toggle="dropdown" href="infoPage.html" role="button" aria-haspopup="true" aria-expanded="false">Information <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
@@ -41,9 +41,11 @@
         <div class="row">
             <div class="col-sm-12">
                 
-                <p class='lightText'>In creating a resoluton proof, we follow two procedures: a procedure that translates an input proposition into Conjunctive Normal Form (CNF); and a procedure known as Resolution, which takes two clauses D1 and D2, where D1 contains <em>p</em>, and D2 contains <em>Np</em>, and then adds a new clause constisting of the elements of D1 "minus" <em>p</em> and D2 "minus" <em>Np</em>. In English: we take <em>p</em> out of one clause, and <em>Np</em> out of the other one, and then combine the clauses to make a new one.</p>
+                <p class='lightText'>The main principle behind resolution proofs is the following rule of inference, known as Resolution:<br>(A &or; B) &and; (&not;B &or; C) &#8872; (A &or; C)<br>With Resolution, we take two clauses D1 and D2, where D1 contains <em>p</em>, and D2 contains <em>Np</em>, and then add a new clause constisting of the elements of D1 "minus" <em>p</em> and D2 "minus" <em>Np</em>. In English: we take <em>p</em> out of one clause, and <em>Np</em> out of the other one, and then combine the clauses to make a new one.<br>
+                Example: Resolving <em>[p, Krs]</em> and <em>[Np, Aqs]</em> "on" <em>p</em> yields <em>[Krs, Aqs]</em>.</p>
+                <p class='lightText'>In constructing a resoluton proof, we follow two procedures: First, we translate the initial propositions into Conjunctive Normal Form (CNF); then, we repeatedly apply Resolution as many times as possible. In CNF, propositions are represented as conjunctions of disjunctions of literals. (E.g., (<em>p</em> &or; (<em>q</em> &and; <em>r</em>)) becomes ((<em>p</em> &or; <em>q</em>) &and; (<em>p</em> &or; <em>r</em>).)</p>
                 
-                <p class="lightText">In our proofs, clauses are represented as lists of propositions. A clause (e.g., <em>[Cpq, Nq]</em>), represents the universal DISJUNCTION of its members (i.e., <em>Cpq</em> or <em>Nq</em>). In our proof, each line represents a set of clauses, where a set of clauses represents the universal CONJUNCTION of its members. For example: <b>[Cpq, Nq], [r]</b> is equivalent to: <b>((p or q) or (not q)) and r</b></p>
+                <p class="lightText">In our proofs, clauses are represented as lists of propositions. A clause (e.g., <em>[Cpq, Nq, r]</em>), represents the universal DISJUNCTION of its members (i.e., <em>Cpq</em> &or; <em>Nq</em> &or; <em>r</em>). Each line of our proof represents a set of clauses, where a set of clauses represents the universal CONJUNCTION of its members. For example: <b>&#12296;[Cpq, Nq, r], [Kst]&#12297;</b> is equivalent to: <b>(Cpq &or; Nq &or; r) &and; (Kst)</b></p>
                 
                 <p class="lightText">Like tableaux, resolution proofs involve proof by refutation. In a proof by refutation, the proof assumes the NEGATION of the desired conclusion, along with any (optional) premises. We then convert the premises into CNF and repeatedly apply Resolution for as long as possible, or until we derive the empty clause ( <em>[ ]</em> ). If the proof derives the empty clause, then the argument is valid. If no more rules can be applied, and the empty clause has not been derived, then the argument is invalid.</p>
                 
