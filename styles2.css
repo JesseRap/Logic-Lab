@@ -330,11 +330,11 @@ tr, td {
 }
 #resTableTD {
     float: left;
-    margin-right: 20px;
+    /*margin-right: 20px;*/
 }
 #noteTableTD {
     float: right;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 #truthTable td {
     padding: 5px;
