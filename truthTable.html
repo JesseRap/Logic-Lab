@@ -3,7 +3,7 @@
 <head>
     <title>Truth Table</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type='text/css' href='styles2.css'>
+    
     <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -47,25 +47,21 @@
         <div class="row">
  
             <div class="col-sm-3 column" id='leftColumn'>
-                <p style="font-size:small">Enter propositions in standard or Polish notation.<br>"If (p and q) then r" <=> "CKpqr"</p>
+                <p style="font-size:small; margin-top:10px">Enter propositions in standard or Polish notation.<br>"If (p and q) then r" <=> "CKpqr"</p>
                 <table id="inputForm1" class='different'>
-                    
-                    
                     <tr class='different'>
                         <td class='different'>
 
-                <input type="text" class='text different' id="inputProp"  style="float:left"> </td><td class='different'>
-                        <br><br>
+                <input type="text" class='text different' id="inputProp"  style="float:left" autocapitalize="none" autocorrect="off" autocomplete="off"></td>
+                        <td class='different'><br><br>
                 <button id="propAddButton" onclick="submitProp()" type="button" class="btn btn-default btn-sm">Enter Proposition</button>
                         </td>
                     </tr>
                 </table>
-
-
-                <br>
+                
+               <br>
                 <button id="resetButton" onclick="resetTable()" type="button" class="btn btn-default">RESET</button>
-                <br>
-                <br>
+                <br><br>
 
   
             </div>
@@ -102,5 +98,6 @@
                 </div>
             </div>
         </div>
+<link rel="stylesheet" type='text/css' href='styles2.css'>
 </body>
 </html>

@@ -13,7 +13,6 @@ function submitPropFunction(inputKey) {
 
 function checkValid() {
     // Check if the entered statement is valid
-    console.log("CHECK VALID");
     // Get the last row of the truth table
     var lastRow = document.getElementById("truthTable").firstChild.lastElementChild;
     // If any of the cells contain 'F', return false; else, return true
@@ -28,10 +27,9 @@ function checkValid() {
 function announceValid() {
     // Announce whether the proposition is valid
     
-    console.log("ANNOUNCE VALID");
     if (checkValid()) {
         document.getElementById("resultLine").innerHTML += 
-            "<b>VALID</b>";
+            "<b>VALID!</b>";
     } else {
         document.getElementById("resultLine").innerHTML += 
             "<b>INVALID</b>";
@@ -40,10 +38,7 @@ function announceValid() {
 
 function submitProp() {
     // Submit the entered statement and generate the truth table
-    
-    console.log("submitProp()");
-    
-    
+
     var statement = 
         document.getElementById("inputProp").value;
     resetTable();
@@ -52,7 +47,6 @@ function submitProp() {
     if (!validateInput(statement)) {
         // Otherwise, try translating to Polish and then validating
         var newPremise = translate(statement);
-        console.log(newPremise);
         if (/undefined/.test(newPremise)) {
             alert("Invalid input");
             resetTable();
@@ -85,13 +79,11 @@ function submitProp() {
     buildTable();
     fillTable();
     announceValid();
-    console.log("THE END");
 };
 
 function convert(inputString) {
     // Convert the input statement into cells of the truth table
     
-    console.log("convert "+inputString);
     // If the string is an atomic proposition, return the string
     var count = 0;
     if (inputString.length === 1) {
@@ -242,6 +234,7 @@ function buildTable() {
         var newRow = theTable.insertRow(-1);
         var newTD = newRow.insertCell(0);
         newTD.innerHTML = element;
+        //newTD.className = 'rowStyle';
         newTD.style.borderBottomWidth = 'medium';
         newTD.style.backgroundColor = 'lightgray';
     });
@@ -251,7 +244,6 @@ function buildTable() {
 
 function compute(inputString, state) {
     // Compute the truth values for the non-atomic cells
-    console.log(["COMPUTE", inputString, state]);
     
     // If the string is an atomic proposition, return the assigned value
     var count = 0;
@@ -306,7 +298,6 @@ function compute(inputString, state) {
             };
     };
     
-    console.log("translating connectives"); 
     // Compute connectives by recursively calling compute() on the parts
     if (/not/i.test(inputString.slice(0,3))) {
         return !compute(inputString.slice(4),state);
@@ -330,7 +321,6 @@ function compute(inputString, state) {
     // Compute connectives
     var count = 0;
     for (var l=0;l<inputString.length;l++) {
-        //alert([l, count, inputString[l]]);
         var letter = inputString[l];
         if (letter === '(') {
             count++;
@@ -365,7 +355,6 @@ function compute(inputString, state) {
 };
 
 function convertPol(inputString) {
-    console.log("convertPol "+inputString);
     // If the string is an atomic proposition, return the string
     var count = 0;
     if (inputString.length === 1) {
@@ -391,12 +380,10 @@ function convertPol(inputString) {
 
 function computePol(inputString, state) {
     // Compute the values for non-atomic cells in Polish notation
-    console.log("computePol "+inputString);
     var count = 0;
     // If the string is atomic, return the value 
     // assigned by the atomic rows in the table
     if (inputString.length === 1) {
-        console.log(tableSet[inputString]);
         if (/[a-z]/.test(inputString)) {
             var currentVal = tableSet[inputString];
             return tableSet[inputString][state]==='T'?true:false;
