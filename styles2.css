@@ -197,7 +197,11 @@ tr, td {
 .nav {
     display: inline-block;
 }
-
+#resolutionDiv {
+    overflow-x: auto;
+    break-inside: avoid;
+    
+}
 .jumbotron {
     position: relative;
     background-color: #E9E9E9 !important;
@@ -222,6 +226,11 @@ tr, td {
     margin-bottom: 20px;
 }
 #noteTable {
+}
+#mrtT {
+    break-inside: avoid;
+    break-after: avoid;
+    break-before: avoid;
 }
 #masterResTable{
 }
@@ -324,16 +333,18 @@ tr, td {
 #masterResTable {
     border-collapse: collapse;
     margin: auto;
+    overflow-x: auto;
+    
 }
 #resTable td, #resTable tr {
     margin: auto;
 }
 #resTableTD {
-    float: left;
+    /*float: left;*/
     /*margin-right: 20px;*/
 }
 #noteTableTD {
-    float: right;
+    /*float: right;*/
     /*margin-left: 20px;*/
 }
 #truthTable td {
