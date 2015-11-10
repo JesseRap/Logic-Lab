@@ -26,6 +26,7 @@
                     <li role="presentation"><a href="infoPage.html">Tableau Information</a></li>
                     <li role="presentation"><a href="resolutionInfo.html">Resolution Information</a></li>
                     <li role="presentation"><a href="notationPage.html">Polish Notation</a></li>
+                    <li role="presentation"><a href="CNF-Info.html">Conjunctive Normal Form</a></li>
                     <li role="presentation"><a href="modalInfo.html">Modal Systems</a></li>
                     <li role="presentation"><a href="examples.html">Example Tautologies</a></li>
                 </ul>
@@ -42,72 +43,70 @@
             <div class="col-sm-12">
                 <h1 id='polishHeader' class='lightText'>Conjunctive Normal Form</h1>
                 <p class='lightText'>In Conjunctive Normal Form (CNF), propositions are represented as CONJUNCTIONS of DISJUNCTIONS of LITERALS (a literal is an atomic proposition or its negation).<br>Example: (p &or; Nr) &and; (Nq &or; Nr &or; s) &and; (s &or; q)<br>In CNF, the topmost operator is the universal conjunction operator, and the only other operators are &or; and &not;.</p>
-                <p class="lightText">Some terminology: a <em>clause</em> is a proposition whose topmost operator is universal disjunction. A <em>clause set</em> is the universal conjunction of a set of clauses.</p>
+                <p class="lightText">Some terminology: a <em>clause</em> is a proposition whose topmost operator is universal disjunction. A clause is here represented as a list of propositions (e.g., <em>[p, Cpq, r]</em>). A <em>clause set</em> is the universal conjunction of a set of clauses. Clause sets are indicated with angled bracks (e.g.,<em>&#12296;[p, Cpq, r],[ApNq,Nr]&#12297;</em>).</p>
                 <p class="lightText">To convert a proposition into CNF, we follow two types of rules: &alpha; rules, like &and;-elimination, which add a new clause to the clause set; and, &beta; rules, like &or;-elimination, which add new propositions to the same clause.</p>
             </div>
         </div>
         <div class="row full">
-            <div class='col-sm-4 col-sm-offset-1'>
-                <h3>Operators</h2>
-                <table id="operatorTable">
-                    <tr><td class='l'>Negation</td>
-                        <td class='r'>N</td>
+            <div class='col-sm-5 col-sm-offset-1'>
+                <h3>&alpha; Rules</h2>
+                <table id="A-Rules-Table">
+                    <tr><td class='l'>&#12296;[Kpq, r]&#12297; &#8872;</td>
+                        <td class='r'>&#12296;[p, r], [q, r]&#12297;</td>
                     </tr>
                     <tr>
-                        <td class='l'>Konjunction</td>
-                        <td class='r'>K</td>
+                        <td class='l'>&#12296;[NCpq, r, s]&#12297; &#8872;</td>
+                        <td class='r'>&#12296;[p, r, s], [Nq, r, s]&#12297;</td>
                     </tr>
-                    <tr><td class='l'>Disjunction/Alernation</td>
-                        <td class='r'>A</td>
+                    <tr><td class='l'>&#12296;[NApq, r]&#12297; &#8872;</td>
+                        <td class='r'>&#12296;[Np, r], [Nq, r]&#12297;</td>
                     </tr>
-                    <tr><td class='l'>Conditional</td>
-                        <td class='r'>C</td>
-                    </tr>
-                    <tr><td class='l'>Biconditional</td>
-                        <td class='r'>B</td>
-                    </tr>
-                    <tr><td class='l'>Necessity</td>
-                        <td class='r'>M</td>
-                    </tr>
-                    <tr><td class='l'>Possibility</td>
-                        <td class='r'>L</td>
-                    </tr>
+
                     
                 </table>
-                    </div>
-                <div class='col-sm-6'>
-                    <h3>Examples</h3>
-                    <table id='exampleTable'>
+            </div>
+                <div class='col-sm-5'>
+                    <h3>&beta; Rules</h3>
+                    <table id='B-Rules-Table'>
                         
                     <tr>
-                        <td class='l2'>p or not p</td>
-                        <td class='r2'>ApNp</td>
+                        <td class='l2'>&#12296;[Apq, r]&#12297; &#8872;</td>
+                        <td class='r2'>&#12296;[p, q, r]&#12297;</td>
                     </tr>
-                    <tr><td class='l2'>Not (p and not p)</td>
-                        <td class='r2'>NKpNp</td>
+                    <tr><td class='l2'>&#12296;[Cpq, r]&#12297; &#8872;</td>
+                        <td class='r2'>&#12296;[Np, q, r]&#12297;</td>
                     </tr>
                     </tr>
-                        <tr><td class='l2'>If (p and (p implies q)) then q</td>
-                        <td class='r2'>CKpCpqq</td>
+                        <tr><td class='l2'>&#12296;[NKpq, r]&#12297; &#8872;</td>
+                        <td class='r2'>&#12296;[Np, Nq, r]&#12297;</td>
                     </tr>
-                    <tr><td class='l2'>If ((p or q) and (not p)) then q</td>
-                        <td class='r2'>CKApqNpq</td>
+                    <tr><td class='l2'>&#12296;[NNp, r]&#12297; &#8872;</td>
+                        <td class='r2'>&#12296;[p, r]&#12297;</td>
                     </tr>
-                    <tr><td class='l2'>If (nec (p and q)) then ((nec p) and (nec q))</td>
-                        <td class='r2'>CMKpqKMpMq</td>
-                    </tr>
-                    <tr><td class='l2'>((nec p) or (nec q)) implies (nec (p  or q))</td>
-                        <td class='r2'>CAMpMqMApq</td>
-                    </tr>
-                    <tr><td class='l2'>If (poss (nec p)) then (nec p)</td>
-                        <td class='r2'>CLMpMp</td>
-                    </tr>
+                    
                     
                     
                     </table>
+            
                 </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Example</h3>
+                <table id="CNFExamples">
+                    <tr><td>&#12296;[KApqs, <span style="color:red">Cpr</span>, Nr]&#12297;</td><td>&beta;-rule &#8667;</td></tr>
+                    <tr><td>&#12296;[<span style="color:red">KApqs</span>, Np, r, Nr]&#12297;</td><td>&alpha;-rule &#8667;</td></tr>
+                    <tr><td>&#12296;[<span style="color:red">Apq</span>, Np, r, Nr]&#12297;, &#12296;[s, Np, r, Nr]&#12297;</td><td>&beta;-rule &#8667;</td></tr>
+                    <tr><td>&#12296;[p, q, Np, r, Nr]&#12297;, &#12296;[s, Np, r, Nr]&#12297;</td><td>CNF</td></tr>
+                </table>
+                
             </div>
         </div>
+            </div>
+        
+
+            
+        </div>
+        
     
         
 
