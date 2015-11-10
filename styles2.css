@@ -34,15 +34,16 @@ h1,p,h3 {
 
 
 
-#operatorTable td {
-    width:150px;  
+#operatorTable td, #A-Rules-Table td {
+    width:180px;  
 }
-#exampleTable {
+#exampleTable, #B-Rules-Table, #CNFExamples {
     font-size: 18px;
+    margin: auto;
     margin-bottom: 10px;
 }
-#exampleTable tr {border-bottom: solid 1px;}
-#operatorTable {margin: auto; font-size: 18px;}
+#exampleTable tr, #B-Rules-Table tr {border-bottom: solid 1px;}
+#operatorTable, #A-Rules-Table, #CNFExamples {margin: auto; font-size: 18px;}
 
 .ModalTable th {
     text-align: center;
@@ -64,7 +65,7 @@ h1,p,h3 {
     margin: 25px;
 }
 
-#operatorTable tr, .ModalTable tr {
+#operatorTable tr, .ModalTable tr, #A-Rules-Table tr, #CNFExamples tr {
     border-bottom: solid 1px;
     border-collapse: collapse;
 }
@@ -72,8 +73,10 @@ h1,p,h3 {
 #polishHeader::first-letter { 
 }
 .r {text-align: right !important;}
-.r2 {text-align: right !important; width: 20%;}
-#operatorTable td, #exampleTable td {text-align: left;}
+.r2 {text-align: right !important; width: 60%;}
+#operatorTable td, #exampleTable td, #A-Rules-Table td, #B-Rules-Table td {
+    text-align: left;
+}
 
 .different td, .different tr {
     float: none !important;
@@ -227,7 +230,8 @@ tr, td {
 .lightText {
     color: #E9E9E9 !important;
 }
-
+.blah {
+}
 
 #leftColumn {
     border: 3px solid #6415ED;
@@ -272,7 +276,10 @@ tr, td {
     margin-right: 10px;
     padding-top: 2px;
 }
-
+#CNFExamples {
+    margin: auto;
+    margin-bottom: 10px;
+}
 #radioGroup {
     margin: auto;
     padding: 2px;
