@@ -15,7 +15,7 @@
         <div class='container-fluid'>
                         
             
-            <h1>Polish Notation</h1>
+            <h1>Conjunctive Normal Form</h1>
         </div>
         <ul class="nav nav-tabs">
             <li role="presentation"><a class='darkText' href="tableauGenerator.html">Tableau Generator</a></li>
@@ -40,9 +40,10 @@
     <div class="container">
         <div class="row middle">
             <div class="col-sm-12">
-                <h1 id='polishHeader' class='lightText'>Polish Notation Explained</h1>
-                <p class='lightText'>In Polish notation, or prefix notation, all operators are prefixed to their operands. Scope does not depend on parentheses.</p>
-                <p class='lightText'>For example, 'p and q' would be represented as 'Kpq,' where 'K' stands for 'Konjunction.'</p>
+                <h1 id='polishHeader' class='lightText'>Conjunctive Normal Form</h1>
+                <p class='lightText'>In Conjunctive Normal Form (CNF), propositions are represented as CONJUNCTIONS of DISJUNCTIONS of LITERALS (a literal is an atomic proposition or its negation).<br>Example: (p &or; Nr) &and; (Nq &or; Nr &or; s) &and; (s &or; q)<br>In CNF, the topmost operator is the universal conjunction operator, and the only other operators are &or; and &not;.</p>
+                <p class="lightText">Some terminology: a <em>clause</em> is a proposition whose topmost operator is universal disjunction. A <em>clause set</em> is the universal conjunction of a set of clauses.</p>
+                <p class="lightText">To convert a proposition into CNF, we follow two types of rules: &alpha; rules, like &and;-elimination, which add a new clause to the clause set; and, &beta; rules, like &or;-elimination, which add new propositions to the same clause.</p>
             </div>
         </div>
         <div class="row full">

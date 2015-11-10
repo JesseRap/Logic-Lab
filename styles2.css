@@ -8,6 +8,13 @@ body {
     font-size: medium;
     z-index: 2;
 }
+#gitLink {
+    position: relative;
+    top: 5px;
+    float:right;
+    font-size: medium;
+    z-index: 2;
+}
 h1,p,h3 {
     text-align: center;
     color: black !important;
@@ -30,7 +37,10 @@ h1,p,h3 {
 #operatorTable td {
     width:150px;  
 }
-#exampleTable {font-size: 18px;}
+#exampleTable {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 #exampleTable tr {border-bottom: solid 1px;}
 #operatorTable {margin: auto; font-size: 18px;}
 
@@ -281,6 +291,7 @@ tr, td {
 #ExampleList {
     width: auto;
     margin: auto;
+    margin-bottom: 20px;
     font-size: x-large;
 }
 

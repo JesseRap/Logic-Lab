@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Beth Tableaux</title>
+    <title>Resolution Info</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type='text/css' href='styles2.css'>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -10,7 +10,7 @@
 </head>
     
 <body>
-    <p id='createdBy'>Created by <a href="http://JesseRap.github.io">Jesse Rappaport</a></p>
+    <p id='createdBy'>Created by <a href="http://JesseRap.github.io">Jesse Rappaport</a></p><a href="https://github.com/JesseRap/Tableaux-Generator" id="gitLink"><img src="GitHub-Mark-32px.png"></a>
     <div class="jumbotron">
         <div class='container-fluid'>
                         
@@ -44,7 +44,7 @@
                 
                 <p class='lightText'>The main principle behind resolution proofs is the following rule of inference, known as Resolution:<br>(A &or; B) &and; (&not;B &or; C) &#8872; (A &or; C)<br>With Resolution, we take two clauses D1 and D2, where D1 contains <em>p</em>, and D2 contains <em>Np</em>, and then add a new clause constisting of the elements of D1 "minus" <em>p</em> and D2 "minus" <em>Np</em>. In English: we take <em>p</em> out of one clause, and <em>Np</em> out of the other one, and then combine the clauses to make a new one.<br>
                 Example: Resolving <em>[p, Krs]</em> and <em>[Np, Aqs]</em> "on" <em>p</em> yields <em>[Krs, Aqs]</em>.</p>
-                <p class='lightText'>In constructing a resoluton proof, we follow two procedures: First, we translate the initial propositions into Conjunctive Normal Form (CNF); then, we repeatedly apply Resolution as many times as possible. In CNF, propositions are represented as conjunctions of disjunctions of literals. (E.g., (<em>p</em> &or; (<em>q</em> &and; <em>r</em>)) becomes ((<em>p</em> &or; <em>q</em>) &and; (<em>p</em> &or; <em>r</em>).)</p>
+                <p class='lightText'>In constructing a resoluton proof, we follow two procedures: First, we translate the initial propositions into Conjunctive Normal Form (CNF); then, we repeatedly apply Resolution as many times as possible. In CNF, propositions are represented as conjunctions of disjunctions of literals. (E.g., (<em>p</em> &or; (<em>q</em> &and; <em>r</em>)) becomes ((<em>p</em> &or; <em>q</em>) &and; (<em>p</em> &or; <em>r</em>)).)</p>
                 
                 <p class="lightText">In our proofs, clauses are represented as lists of propositions. A clause (e.g., <em>[Cpq, Nq, r]</em>), represents the universal DISJUNCTION of its members (i.e., <em>Cpq</em> &or; <em>Nq</em> &or; <em>r</em>). Each line of our proof represents a set of clauses, where a set of clauses represents the universal CONJUNCTION of its members. For example: <b>&#12296;[Cpq, Nq, r], [Kst]&#12297;</b> is equivalent to: <b>(Cpq &or; Nq &or; r) &and; (Kst)</b></p>
                 

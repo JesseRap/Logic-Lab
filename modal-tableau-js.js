@@ -283,7 +283,8 @@ function tableauObj(parentdiv1) {
             (proposition[1].slice(0,2) === 'NA') ||
             (proposition[1][0] === 'C' && !tableHasProp(this.memoryBank,[proposition[0],proposition[1].slice(1,2)])) ||
             (proposition[1][0] === 'A') ||
-            (proposition[1].slice(0,2) === 'NK') ) {
+            (proposition[1].slice(0,2) === 'NK') || 
+            (proposition[1][0] === 'L') ) {
             lineList.push(newTD);
         };
             
@@ -717,10 +718,108 @@ function lineThrough() {
     var t = lineList.shift();
     t.style.textDecoration = 'line-through';
 };
-
-
-
+/*
+Get a collection of all the TD's that contain 'X'.
+Get a list of each of their siblings.
+Go through each list, and get the literals.
+For each literal, go through all the TD children of the tableauDiv
+and check if they contain the negation of the literal AND if they are
+parents of or siblings of the literal. If so, add the literal and its
+negated TD to the lightList.
+*/
 function lightTable() {
+    var tdSet = $("#tableauDiv").find("td");
+    //console.log(tdSet.length);
+    var tdXSet = $("#tableauDiv").find("td:contains('\u2573')");
+    //console.log(tdXSet.length);
+    tdXSet.each(function(idx,el) {
+        elSiblings = $(el).siblings();
+        //console.log(elSiblings.length);
+        elParents = $(el).parents("table, td, tr, tbody");
+        //console.log(elParents.length);
+        //$(elParents).each(function(n,e) {console.log(e.innerHTML);});
+        
+        
+        var parentChildren = $(elParents).children("td");
+        var sibsAndParents = $(elSiblings).add(elParents).add(parentChildren);
+        //console.log(sibsAndParents.length);
+        if (currentLogic === 'NM') {
+            var xLiteralSet = $(elSiblings).filter(function(i) {
+                return /^N?[a-z]$/.test(this.innerHTML);
+            });
+            //console.log('xLiteralSet'+xLiteralSet.length);
+            $(xLiteralSet).each(function(i,e) {
+                if (e.innerHTML.length === 1) {
+                    var newRegExp = new RegExp('^N'+e.innerHTML);
+                    var denialSet = $(sibsAndParents).filter(function(i) {
+                        //console.log(this.innerHTML);
+                        return newRegExp.test(this.innerHTML);
+                    });
+                    if (denialSet.length > 0) {
+                        console.log("DENIALS FOUND");
+                        denialSet.each(function(index, element) {
+                            //console.log(element.innerHTML);
+                            element.style.color = "red";
+                        });
+                        e.style.color="red";
+                    };
+                } else if (e.innerHTML.length === 2) {
+                    var newRegExp = new RegExp('^'+e.innerHTML.slice(1));
+                    var denialSet = $(sibsAndParents).filter(function(i) {
+                        return newRegExp.test(this.innerHTML);
+                    });
+                    if (denialSet.length > 0) {
+                        console.log("DENIALS FOUND");
+                        denialSet.each(function(index, element) {
+                            //console.log(element.innerHTML);
+                            element.style.color = "red";
+                        });
+                        e.style.color="red";
+                    };
+                };
+            });
+        } else {
+            var xLiteralSet = $(elSiblings).filter(function(i) {
+                return /,N?[a-z]$/.test(this.innerHTML);
+            });
+            //console.log('xLiteralSet'+xLiteralSet.length);
+            $(xLiteralSet).each(function(i,e) {
+                var eSlice = e.innerHTML.slice(e.innerHTML.indexOf(',')+1);
+                var eSliceIdx = e.innerHTML.slice(0,e.innerHTML.indexOf(','));
+                if (eSlice.length === 1) {
+                    var newRegExp = new RegExp('^'+eSliceIdx+',N'+eSlice+'$');
+                    var denialSet = $(sibsAndParents).filter(function(i) {
+                        //console.log(this.innerHTML);
+                        return newRegExp.test(this.innerHTML);
+                    });
+                    if (denialSet.length > 0) {
+                        //console.log("DENIALS FOUND");
+                        denialSet.each(function(index, element) {
+                            //console.log(element.innerHTML);
+                            element.style.color = "red";
+                        });
+                        e.style.color="red";
+                    };
+                } else if (eSlice.length === 2) {
+                    var newRegExp = new RegExp('^'+eSliceIdx+','+eSlice.slice(1)+'$');
+                    var denialSet = $(sibsAndParents).filter(function(i) {
+                        return newRegExp.test(this.innerHTML);
+                    });
+                    if (denialSet.length > 0) {
+                        console.log("DENIALS FOUND");
+                        denialSet.each(function(index, element) {
+                            //console.log(element.innerHTML);
+                            element.style.color = "red";
+                        });
+                        e.style.color="red";
+                    };
+                };
+            });
+        };
+    });
+};
+
+function lightTable2() {
     // Search the table and highlight contradictories
     var tdSet1 = $('#tableauDiv').find("td");    // the set of TDs
     for (var o=0;o<lightList.length;o++) {
@@ -765,7 +864,8 @@ function showTable() {
         };
         d += 500;
     });
-    //window.setTimeout(lightTable,d);
+    window.setTimeout(lightTable,d);
+    console.log(document.getElementById("tableauDiv").innerHTML);
 };
 
 
