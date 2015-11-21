@@ -53,6 +53,18 @@ function getPrenex(inputString) {
         beginning = 0;
     };
     console.log(beginning);
+    var count = 0;
+    for (var i=beginning;i<inputString.length;i++) {
+        if (inputString[i] === '(') {
+            count++;
+        } else if (inputString[i] === ')') {
+            count--;
+        };
+        if (count === 0 && i<inputString.length - 1) {
+            console.log('no prenex!');
+            return ['',inputString];
+        };
+    };
     // Split the string at the beginning of the matrix
     return [inputString.slice(0, beginning), inputString.slice(beginning)];
 };
@@ -64,7 +76,6 @@ function translate(inputString) {
     var count = 0;
     
     if (/^([EV][u-z])*([p-t]|[FG][a-eu-z]|[HI][a-eu-z][a-eu-z]|J[a-eu-z][a-eu-z][a-eu-z])$/.test(inputString)) {
-        console.log("yes");
         return inputString;
     };
     
@@ -133,156 +144,10 @@ function translate(inputString) {
     if (/poss/i.test(inputString.slice(0,4))) {
         return 'L'+translate(inputString.slice(5));
     };
-    // Translate 'if..then...' to 'C...'
-    if (/if/i.test(inputString.slice(0,2))) {
-        var count = 0;
-        for (var l=0;l<inputString.length;l++) {
-            var letter = inputString[l];
-            if (letter === '(') {
-                count++;
-            } else if (letter === ')') {
-                count--;
-            };
-            if (count === 0 && inputString.slice(l,l+4) === 'then') {
-                return 'C' + translate(inputString.slice(3,l-1)) + translate(inputString.slice(l+5));
-            };
-        };
-    };
-    // Translate other connectives
-    var count = 0;
-    for (var l=0;l<inputString.length;l++) {
-        var letter = inputString[l];
-        if (letter === '(') {
-            count++;
-        } else if (letter === ')') {
-            count--;
-        };
-        if (count === 0) {
-            if (/and/i.test(inputString.slice(l,l+3))) {
-                return 'K' + translate(inputString.slice(0,l-1)) + 
-                    translate(inputString.slice(l+4));
-            };
-            if (/or/i.test(inputString.slice(l,l+2))) {
-                return 'A' + translate(inputString.slice(0,l-1)) + 
-                    translate(inputString.slice(l+3));
-            };
-            if (/implies/i.test(inputString.slice(l,l+7))) {
-                return 'C' + translate(inputString.slice(0,l-1)) +
-                    translate(inputString.slice(l+8));
-            };
-            if (/only\sif/i.test(inputString.slice(l,l+7))) {
-                return 'C' + translate(inputString.slice(0,l-1)) +
-                    translate(inputString.slice(l+8));
-            };
-            if (/iff/i.test(inputString.slice(l,l+3))) {
-                return 'B' + translate(inputString.slice(0,l-1)) +
-                    translate(inputString.slice(l+4));
-            };
-            if (/if\sand\sonly\sif/i.test(inputString.slice(l,l+14))) {
-                return 'B' + translate(inputString.slice(0,l-1)) +
-                    translate(inputString.slice(l+15));
-            };
-            if (/if\s/i.test(inputString.slice(0,l+3))) {
-                return 'C' + translate(inputString.slice(0,l-1)) +
-                    translate(inputString.slice(l+3));
-            };
-        };
-    };
-};
 
-function translate2(inputString) {
-    // Translate standard logic notation into Polish notation
-    console.log("TRANSLATE "+inputString);
-    // If the string is an atomic proposition, return the string
-    var count = 0;
-    /*
-    if (inputString.length === 1) {
-        if (/[a-z]/.test(inputString)) {
-            return inputString;
-        } else {return false;}
-    };
-    */
-    
-    if (/^([EV][u-z])*([p-t]|[FG][a-eu-z]|[HI][a-eu-z][a-eu-z]|J[a-eu-z][a-eu-z][a-eu-z])$/.test(inputString)) {
-        console.log("yes");
-        return inputString;
-    };
-    
-    // Trim leading whitespace
-    if (/^\s/.test(inputString)) {
-        return translate(inputString.slice(1));
-    };
-    // Trim trailing whitespace
-    if (/\s$/.test(inputString)) {
-        return translate(inputString.slice(0,-1));
-    };
-    // Trim extra leading or trailing paren
-    if (inputString[0] === '(') {
-        if (inputString.match(/\)/g) === null) {
-            return translate(inputString.slice(1));
-        } else if (inputString.match(/\(/g).length === 
-                   inputString.match(/\)/g).length+1) {
-            return translate(inputString.slice(1));
-        };
-    };
-    if (inputString[-1] === ')') {
-        if (inputString.match(/\(/g) === null) {
-            return translate(inputString.slice(1));
-        } else if (inputString.match(/\)/g).length === 
-                   inputString.match(/\(/g).length+1) {
-            return inputString.slice(0,-1);
-        };
-    };
-    // Trim unnecessary parens
-    if (inputString[0] === '(') {
-        var count = 0
-        loop1:
-            for (var l=0;l<inputString.length;l++) {
-                var letter = inputString[l];
-                if (letter === '(') {
-                    count++;
-                } else if (letter === ')') {
-                    count--;
-                };
-                if (count === 0) {
-                    if (l === inputString.length-1) {
-                        return translate(inputString.slice(1,-1));
-                    };
-                    break loop1;
-                };
-            };
-    };
-    
-	// Translate 'not...' to 'N...'
-    if (/not/i.test(inputString.slice(0,3))) {
-        return 'N'+translate(inputString.slice(4));
-    };
-    // Translate 'Nec'
-    if (/nec/i.test(inputString.slice(0,3))) {
-        return 'M'+translate(inputString.slice(4));
-    };
-    // Translate 'Poss'
-    if (/poss/i.test(inputString.slice(0,4))) {
-        return 'L'+translate(inputString.slice(5));
-    };
-    // Translate 'if..then...' to 'C...'
-    if (/if/i.test(inputString.slice(0,2))) {
-        var count = 0;
-        for (var l=0;l<inputString.length;l++) {
-            var letter = inputString[l];
-            if (letter === '(') {
-                count++;
-            } else if (letter === ')') {
-                count--;
-            };
-            if (count === 0 && inputString.slice(l,l+4) === 'then') {
-                return 'C' + translate(inputString.slice(3,l-1)) + translate(inputString.slice(l+5));
-            };
-        };
-    };
-    // Translate other connectives
     var count = 0;
     for (var l=0;l<inputString.length;l++) {
+        console.log('var l = '+l+' '+inputString[l]+' and count = '+count);
         var letter = inputString[l];
         if (letter === '(') {
             count++;
@@ -290,23 +155,43 @@ function translate2(inputString) {
             count--;
         };
         if (count === 0) {
+            if (/if/i.test(inputString.slice(l,l+2))) {
+                console.log("if then");
+                var count1 = 0;
+                for (var m=l;m<inputString.length;m++) {
+                    var letter1 = inputString[m];
+                    if (letter1 === '(') {
+                        count1++;
+                    } else if (letter1 === ')') {
+                        count1--;
+                    };
+                    if (count1 === 0 && inputString.slice(m,m+4) === 'then') {
+                        return 'C' + translate(inputString.slice(3,m-1)) + translate(inputString.slice(m+5));
+                    };
+                };
+            };
             if (/and/i.test(inputString.slice(l,l+3))) {
+                console.log("and");
                 return 'K' + translate(inputString.slice(0,l-1)) + 
                     translate(inputString.slice(l+4));
             };
             if (/or/i.test(inputString.slice(l,l+2))) {
+                console.log("or");
                 return 'A' + translate(inputString.slice(0,l-1)) + 
                     translate(inputString.slice(l+3));
             };
             if (/implies/i.test(inputString.slice(l,l+7))) {
+                console.log("implies");
                 return 'C' + translate(inputString.slice(0,l-1)) +
                     translate(inputString.slice(l+8));
             };
             if (/only\sif/i.test(inputString.slice(l,l+7))) {
+                console.log("only if");
                 return 'C' + translate(inputString.slice(0,l-1)) +
                     translate(inputString.slice(l+8));
             };
             if (/iff/i.test(inputString.slice(l,l+3))) {
+                console.log("iff");
                 return 'B' + translate(inputString.slice(0,l-1)) +
                     translate(inputString.slice(l+4));
             };
@@ -314,7 +199,8 @@ function translate2(inputString) {
                 return 'B' + translate(inputString.slice(0,l-1)) +
                     translate(inputString.slice(l+15));
             };
-            if (/if\s/i.test(inputString.slice(0,l+3))) {
+            if (/if\s/i.test(inputString.slice(l,l+3))) {
+                console.log("if");
                 return 'C' + translate(inputString.slice(0,l-1)) +
                     translate(inputString.slice(l+3));
             };
@@ -637,7 +523,24 @@ function tableauObj(parentdiv1) {
             };
             
             this.applyERules();
+            
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
+            };
+            
             this.applyVRules();
+            
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
+            };
             
             // Apply branching rules while they apply
             while (this.splittingRulesApply(this.toDoArray)) {
@@ -731,7 +634,21 @@ function tableauObj(parentdiv1) {
                         var result2 = newTableau2.callBeth(newTable3);
                         return result1 && result2;
                     };
+                    if (this.checkClosed()) {
+                        var newX = document.createElement("TD");
+                        newX.style.opacity = '0'
+                        this.table.firstChild.appendChild(newX);
+                        newX.innerHTML = '&#9587;';
+                        return true;
+                    };
                 };
+            };
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
             };
             // Apply modal rules (except 'M')
             while (this.modalRulesApply(this.toDoArray)) {
@@ -758,9 +675,22 @@ function tableauObj(parentdiv1) {
                         showList.push([idx,propY]);
                         this.addToTable([idx,'MN'+propY.slice(2)]);
                     };
+                    if (this.checkClosed()) {
+                        var newX = document.createElement("TD");
+                        newX.style.opacity = '0'
+                        this.table.firstChild.appendChild(newX);
+                        newX.innerHTML = '&#9587;';
+                        return true;
+                    };
                 };
             };
-            
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
+            };
             // Apply 'M' rules
             for (m=0;m<this.toDoArray.length;m++) {
                 var propM = this.toDoArray[m][1];
@@ -806,6 +736,13 @@ function tableauObj(parentdiv1) {
                             this.addToTable([aWorlds2[a],propM.slice(1)]);
                         };
                     };
+                };
+                if (this.checkClosed()) {
+                    var newX = document.createElement("TD");
+                    newX.style.opacity = '0'
+                    this.table.firstChild.appendChild(newX);
+                    newX.innerHTML = '&#9587;';
+                    return true;
                 };
             };
             if (this.checkClosed()) {
@@ -1592,10 +1529,10 @@ function prenexConvertRules(inputString) {
     var matrix = inputString.slice(inputString.indexOf(topOp));
     var result;
     console.log(topOp + ' ' + prenex);
-    if (inputString.slice(0,2) === 'NE') {
-        result =  'V' + inputString[2] + 'N' + inputString.slice(3);
-    } else if (inputString.slice(0,2) === 'NV') {
-        result =  'E' + inputString[2] + 'N' + inputString.slice(3);
+    if (matrix.slice(0,2) === 'NE') {
+        result =  prenex + 'V' + matrix[2] + 'N' + matrix.slice(3);
+    } else if (matrix.slice(0,2) === 'NV') {
+        result =  prenex + 'E' + matrix[2] + 'N' + matrix.slice(3);
     } else if (/[KAC]/.test(topOp)) {
         // What to do if one of the operands have a leading quantifier
         var ops = getOperands(matrix);
@@ -1636,7 +1573,7 @@ function prenexConvertRules(inputString) {
             
         };
     } else if (topOp === 'N') {
-        pcr = prenexConvertRules(inputString.slice(1));
+        pcr = prenexConvertRules(matrix.slice(1));
         result =  prenex + 'N' + pcr;
     } else if (/[LM]/.test(topOp)) {
         if (/[EV]/.test(inputString[1])) {
@@ -1651,70 +1588,3 @@ function prenexConvertRules(inputString) {
         
 };
 
-
-function prenexConvertRules2(inputString) {
-    // Perform one conversion operation on the input string
-    console.log("NOW CONVERTING "+inputString);
-    if (!/[EV]/.test(inputString)) {
-        // Return inputString if there are no quantifies
-        return inputString;
-    };
-    
-    //var topOp = inputString.match(opsRegExp)[0];
-    var opsMatches = inputString.match(opsRegExp);
-    if (opsMatches === null) {
-        topOp = null;
-    } else {
-        topOp = opsMatches[0];
-        var m = inputString.match(/[p-tF-JNKCABLM]/);
-    };
-    // Get the prenex and matrix
-    if (m !== null) {
-        var beginning = inputString.indexOf(m[0]);
-    };
-    if (beginning === 0) {
-        var prenex = null;
-        var matrix = inputString;
-    } else {
-        var prenex = inputString.slice(0, beginning);
-        var matrix = inputString.slice(beginning);
-    };
-    var result;
-    console.log(topOp + ' ' + prenex);
-    if (!/[EV]/.test(matrix)) {
-        return inputString;
-    };
-
-    if (/[KAC]/.test(topOp)) {
-        var ops = getOperands(matrix);
-        if (ops[0][0] === 'V') {
-            var p2 = makeDifferent(ops[0],ops[1]);
-            result =  prenex + 'V' + ops[0][1] + topOp + ops[0].slice(2) + p2;
-        } else if (ops[0][0] === 'E') {
-            var p2 = makeDifferent(ops[0],ops[1]);
-            result = prenex + 'E' + ops[0][1] + topOp + ops[0].slice(2) + p2;
-        } else if (ops[1][0] === 'V') {
-            var p2 = makeDifferent(ops[1],ops[0]);
-            result =  prenex + 'V' + ops[1][1] + topOp + p2 + ops[1].slice(2);
-        } else if (ops[1][0] === 'E') {
-            var p2 = makeDifferent(ops[1],ops[0]);
-            result = prenex + 'E' + ops[1][1] + topOp + p2 + ops[1].slice(2);
-        } else if (/[EV]/.test(ops[0])) {
-            //return prenex + prenexConvertRules(ops[0]).slice(2) + topOp + prenexConvertRules(ops[0]) + ops[1];
-            var pcr = prenexConvertRules(ops[0]);
-            result =  pcr.slice(0,2) + prenex + topOp + pcr.slice(2) + ops[1];
-            //return prenex + topOp + prenexConvertRules(ops[0]) + ops[1];
-        } else if (/[EV]/.test(ops[1])) {
-            //return prenex + prenexConvertRules(ops[1]).slice(2) + topOp + ops[0] + prenexConvertRules(ops[1]);
-            var pcr = prenexConvertRules(ops[1]);
-            result = pcr.slice(0,2) + prenex + topOp + ops[0] + pcr.slice(2);
-            //return prenex + topOp + ops[0] + prenexConvertRules(ops[1]);
-        };
-    } else if (topOp === 'N') {
-        pcr = prenexConvertRules(inputString.slice(1));
-        result =  prenex + 'N' + pcr;
-    };
-    console.log("RETURNING " + result);
-    return result;
-        
-};
