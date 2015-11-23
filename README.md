@@ -1,4 +1,2 @@
-# Tableaux-Generator
-Tableaux generator for propositional logic
-
-Creates tableaux for propositional logic in non-modal or modal systems. Also contains a truth table generator.
+# Logic Lab
+Educational resource for philosophical logic. Currently features three automated proof methods: tableau generator for modal or non-modal propositional or first-order logic; truth table generator for propositional logic; and a resolution proof generator for propositional logic. Also contains background information on logic.
