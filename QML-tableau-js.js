@@ -54,15 +54,18 @@ function getPrenex(inputString) {
     };
     console.log(beginning);
     var count = 0;
-    for (var i=beginning;i<inputString.length;i++) {
-        if (inputString[i] === '(') {
-            count++;
-        } else if (inputString[i] === ')') {
-            count--;
-        };
-        if (count === 0 && i<inputString.length - 1) {
-            console.log('no prenex!');
-            return ['',inputString];
+    if (inputString[beginning] === '(') {
+        for (var i=beginning;i<inputString.length;i++) {
+        
+            if (inputString[i] === '(') {
+                count++;
+            } else if (inputString[i] === ')') {
+                count--;
+            };
+            if (count === 0 && i<inputString.length - 1) {
+                console.log('no prenex!');
+                return ['',inputString];
+            };
         };
     };
     // Split the string at the beginning of the matrix
@@ -325,16 +328,28 @@ function tableauObj(parentdiv1) {
                 termlist.forEach(function(el,id) {
                 
                 
-                var variable = obj[1][1];
-                var RE = new RegExp(variable);
-                var result1 = obj[1].slice(2);
-                var nextTerm = el
-                var result2 = result1.replace(RE,nextTerm);
-                var result = [obj[0],result2];
-                if (!tableHasProp(me.memoryBank, result)) {
-                    answer = true;
+                    var variable = obj[1][1];
+                    var RE = new RegExp(variable);
+                    var result1 = obj[1].slice(2);
+                    var nextTerm = el
+                    var result2 = result1.replace(RE,nextTerm);
+                    var result = [obj[0],result2];
+                    if (!tableHasProp(me.memoryBank, result)) {
+                        answer = true;
+                    };
+                });
+                if (termlist.length === 0) {
+                    console.log('empty1');
+                    var pnex = getPrenex(obj[1])[0];
+                    console.log(pnex);
+                    if (/E/.test(pnex.slice(2))) {
+                        console.log("yup");
+                        if (!tableHasProp(me.memoryBank, ([obj[0],obj[1].slice(2)]))) {
+                            //me.addArrow();
+                            answer = true;
+                        };
+                    };
                 };
-            });
             };
         });
         return answer;
@@ -359,19 +374,31 @@ function tableauObj(parentdiv1) {
                 termlist.forEach(function(el,id) {
                 
                 
-                var variable = obj[1][1];
-                var RE = new RegExp(variable,'g');
-                var result1 = obj[1].slice(2);
-                var nextTerm = el
-                var result2 = result1.replace(RE,nextTerm);
-                var result = [obj[0],result2];
-                if (!tableHasProp(me.memoryBank, result)) {
-                    //me.addArrow();
-                    me.addToTable(result);
-                    showList.push(result);
-                    me.toDoArray.push(result);
+                    var variable = obj[1][1];
+                    var RE = new RegExp(variable,'g');
+                    var result1 = obj[1].slice(2);
+                    var nextTerm = el
+                    var result2 = result1.replace(RE,nextTerm);
+                    var result = [obj[0],result2];
+                    if (!tableHasProp(me.memoryBank, result)) {
+                        //me.addArrow();
+                        me.addToTable(result);
+                        showList.push(result);
+                        me.toDoArray.push(result);
+                    };
+                });
+                if (termlist.length === 0) {
+                    console.log("empty");
+                    var pnex = getPrenex(obj[1])[0];
+                    if (/E/.test(pnex.slice(2))) {
+                        if (!tableHasProp(me.memoryBank, ([obj[0],obj[1].slice(2)]))) {
+                            //me.addArrow();
+                            me.addToTable([obj[0],obj[1].slice(2)]);
+                            showList.push([obj[0],obj[1].slice(2)]);
+                            me.toDoArray.push([obj[0],obj[1].slice(2)]);
+                        };
+                    };
                 };
-            });
             };
         });
     };
@@ -445,6 +472,15 @@ function tableauObj(parentdiv1) {
                 this.addToTable([idx,"E"+propR[2]+"N"+propR.slice(3)]);
             };
         };
+        if (this.checkClosed()) {
+            /*
+            var newX = document.createElement("TD");
+            newX.style.opacity = '0'
+            this.table.firstChild.appendChild(newX);
+            newX.innerHTML = '&#9587;';
+            */
+        return true;
+        };
     };
 
     this.addToTable = function(proposition) {
@@ -504,6 +540,13 @@ function tableauObj(parentdiv1) {
         // Apply the rules for as long as they apply
         //this.applyVRules();
         while (this.rulesApply() || this.mOperatorApplies()) {
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
+            };
             if (this.checkDuplicate()) {
                 // If the tableau begins to repeat itself, stop computing
                 break;
@@ -534,6 +577,110 @@ function tableauObj(parentdiv1) {
             
             this.applyVRules();
             
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
+            };
+            
+            
+            // Apply modal rules (except 'M')
+            while (this.modalRulesApply(this.toDoArray)) {
+                for (n=0;n<this.toDoArray.length;n++){
+                    var propY = this.toDoArray[n][1];
+                    var idx = this.toDoArray[n][0];
+                    if (propY[0] === 'L') {
+                        this.addArrow();
+                        var idxNew = this.idxNext(idx);
+                        this.toDoArray.push([idxNew,propY.slice(1)]);
+                        this.toDoArray.splice(n,1);
+                        this.addToTable([idxNew,propY.slice(1)]);
+                        showList.push([idx,propY]);
+                    } else if (propY.slice(0,2) === 'NM') {
+                        this.addArrow();
+                        this.toDoArray.push([idx,'LN'+propY.slice(2)]);
+                        this.toDoArray.splice(n,1);
+                        showList.push([idx,propY]);
+                        this.addToTable([idx,'LN'+propY.slice(2)]);
+                    } else if (propY.slice(0,2) === 'NL') {
+                        this.addArrow();
+                        this.toDoArray.push([idx,'MN'+propY.slice(2)]);
+                        this.toDoArray.splice(n,1);
+                        showList.push([idx,propY]);
+                        this.addToTable([idx,'MN'+propY.slice(2)]);
+                    };
+                    if (this.checkClosed()) {
+                        var newX = document.createElement("TD");
+                        newX.style.opacity = '0'
+                        this.table.firstChild.appendChild(newX);
+                        newX.innerHTML = '&#9587;';
+                        return true;
+                    };
+                };
+            };
+            if (this.checkClosed()) {
+                var newX = document.createElement("TD");
+                newX.style.opacity = '0'
+                this.table.firstChild.appendChild(newX);
+                newX.innerHTML = '&#9587;';
+                return true;
+            };
+            // Apply 'M' rules
+            for (m=0;m<this.toDoArray.length;m++) {
+                var propM = this.toDoArray[m][1];
+                var idxM = this.toDoArray[m][0];
+                if (propM[0] === 'M') {
+                    // Apply special modal rules
+                    if (currentLogic === 'T' || currentLogic === 'S4' || currentLogic === 'S5') {
+                        if (!tableHasProp(this.memoryBank, [idxM, propM.slice(1)])) {
+                            this.toDoArray.push([idxM, propM.slice(1)]);
+                            this.addToTable([idxM, propM.slice(1)]);
+                        };
+                    } else if (currentLogic === 'D') {
+                        if (!tableHasProp(this.memoryBank, [idxM, 'L'+propM.slice(1)])) {
+                            this.toDoArray.push([idxM, 'L'+propM.slice(1)]);
+                            this.addToTable([idxM, 'L'+propM.slice(1)]);
+                        }
+                    };
+                    if (currentLogic === 'S5') {
+                        if (idxM.length>1 && 
+                            !tableHasProp(this.memoryBank,[idxM.slice(0,-2),propM])) {
+                            this.toDoArray.push([idxM.slice(0,-2),propM]);
+                            this.addToTable([idxM.slice(0,-2),propM]);
+                        };
+                    };
+                    if (currentLogic === 'B') {
+                        if (idxM.length>1 && 
+                            !tableHasProp(this.memoryBank,[idxM.slice(0,-2),propM.slice(1)])) {
+                            this.toDoArray.push([idxM.slice(0,-2),propM.slice(1)]);
+                            this.addToTable([idxM.slice(0,-2),propM.slice(1)]);
+                        };
+                    };
+                    
+                    var aWorlds2 = this.accessibleWorlds(idxM);
+                    for (a=0;a<aWorlds2.length;a++) {
+                        if (currentLogic==='K4' || currentLogic==='S4' || currentLogic==='S5') {
+                            if (!tableHasProp(this.memoryBank,[aWorlds2[a],propM])) {
+                                this.toDoArray.push([aWorlds2[a],propM]);
+                                this.addToTable([aWorlds2[a],propM]);
+                            };
+                        };
+                        if (!tableHasProp(this.memoryBank,[aWorlds2[a],propM.slice(1)])) {
+                            this.toDoArray.push([aWorlds2[a],propM.slice(1)]);
+                            this.addToTable([aWorlds2[a],propM.slice(1)]);
+                        };
+                    };
+                };
+                if (this.checkClosed()) {
+                    var newX = document.createElement("TD");
+                    newX.style.opacity = '0'
+                    this.table.firstChild.appendChild(newX);
+                    newX.innerHTML = '&#9587;';
+                    return true;
+                };
+            };
             if (this.checkClosed()) {
                 var newX = document.createElement("TD");
                 newX.style.opacity = '0'
@@ -650,108 +797,6 @@ function tableauObj(parentdiv1) {
                 newX.innerHTML = '&#9587;';
                 return true;
             };
-            // Apply modal rules (except 'M')
-            while (this.modalRulesApply(this.toDoArray)) {
-                for (n=0;n<this.toDoArray.length;n++){
-                    var propY = this.toDoArray[n][1];
-                    var idx = this.toDoArray[n][0];
-                    if (propY[0] === 'L') {
-                        this.addArrow();
-                        var idxNew = this.idxNext(idx);
-                        this.toDoArray.push([idxNew,propY.slice(1)]);
-                        this.toDoArray.splice(n,1);
-                        this.addToTable([idxNew,propY.slice(1)]);
-                        showList.push([idx,propY]);
-                    } else if (propY.slice(0,2) === 'NM') {
-                        this.addArrow();
-                        this.toDoArray.push([idx,'LN'+propY.slice(2)]);
-                        this.toDoArray.splice(n,1);
-                        showList.push([idx,propY]);
-                        this.addToTable([idx,'LN'+propY.slice(2)]);
-                    } else if (propY.slice(0,2) === 'NL') {
-                        this.addArrow();
-                        this.toDoArray.push([idx,'MN'+propY.slice(2)]);
-                        this.toDoArray.splice(n,1);
-                        showList.push([idx,propY]);
-                        this.addToTable([idx,'MN'+propY.slice(2)]);
-                    };
-                    if (this.checkClosed()) {
-                        var newX = document.createElement("TD");
-                        newX.style.opacity = '0'
-                        this.table.firstChild.appendChild(newX);
-                        newX.innerHTML = '&#9587;';
-                        return true;
-                    };
-                };
-            };
-            if (this.checkClosed()) {
-                var newX = document.createElement("TD");
-                newX.style.opacity = '0'
-                this.table.firstChild.appendChild(newX);
-                newX.innerHTML = '&#9587;';
-                return true;
-            };
-            // Apply 'M' rules
-            for (m=0;m<this.toDoArray.length;m++) {
-                var propM = this.toDoArray[m][1];
-                var idxM = this.toDoArray[m][0];
-                if (propM[0] === 'M') {
-                    // Apply special modal rules
-                    if (currentLogic === 'T' || currentLogic === 'S4' || currentLogic === 'S5') {
-                        if (!tableHasProp(this.memoryBank, [idxM, propM.slice(1)])) {
-                            this.toDoArray.push([idxM, propM.slice(1)]);
-                            this.addToTable([idxM, propM.slice(1)]);
-                        };
-                    } else if (currentLogic === 'D') {
-                        if (!tableHasProp(this.memoryBank, [idxM, 'L'+propM.slice(1)])) {
-                            this.toDoArray.push([idxM, 'L'+propM.slice(1)]);
-                            this.addToTable([idxM, 'L'+propM.slice(1)]);
-                        }
-                    };
-                    if (currentLogic === 'S5') {
-                        if (idxM.length>1 && 
-                            !tableHasProp(this.memoryBank,[idxM.slice(0,-2),propM])) {
-                            this.toDoArray.push([idxM.slice(0,-2),propM]);
-                            this.addToTable([idxM.slice(0,-2),propM]);
-                        };
-                    };
-                    if (currentLogic === 'B') {
-                        if (idxM.length>1 && 
-                            !tableHasProp(this.memoryBank,[idxM.slice(0,-2),propM.slice(1)])) {
-                            this.toDoArray.push([idxM.slice(0,-2),propM.slice(1)]);
-                            this.addToTable([idxM.slice(0,-2),propM.slice(1)]);
-                        };
-                    };
-                    
-                    var aWorlds2 = this.accessibleWorlds(idxM);
-                    for (a=0;a<aWorlds2.length;a++) {
-                        if (currentLogic==='K4' || currentLogic==='S4' || currentLogic==='S5') {
-                            if (!tableHasProp(this.memoryBank,[aWorlds2[a],propM])) {
-                                this.toDoArray.push([aWorlds2[a],propM]);
-                                this.addToTable([aWorlds2[a],propM]);
-                            };
-                        };
-                        if (!tableHasProp(this.memoryBank,[aWorlds2[a],propM.slice(1)])) {
-                            this.toDoArray.push([aWorlds2[a],propM.slice(1)]);
-                            this.addToTable([aWorlds2[a],propM.slice(1)]);
-                        };
-                    };
-                };
-                if (this.checkClosed()) {
-                    var newX = document.createElement("TD");
-                    newX.style.opacity = '0'
-                    this.table.firstChild.appendChild(newX);
-                    newX.innerHTML = '&#9587;';
-                    return true;
-                };
-            };
-            if (this.checkClosed()) {
-                var newX = document.createElement("TD");
-                newX.style.opacity = '0'
-                this.table.firstChild.appendChild(newX);
-                newX.innerHTML = '&#9587;';
-                return true;
-            };
             
         };
         // Check if the branch is closed
@@ -824,7 +869,7 @@ function tableauObj(parentdiv1) {
             var opsMatches = propQ.match(opsRegExp);
             var m = propQ.match(/[p-tF-JNKCABLM]/);
             // Get the prenex and matrix
-            if (m !== null) {
+            /*if (m !== null) {
                 var beginning = propQ.indexOf(m[0]);
             };
             if (beginning === 0) {
@@ -840,7 +885,10 @@ function tableauObj(parentdiv1) {
             } else {
                 console.log('PRENEX '+prenex);
             };
-            if (/E/.test(prenex)) {
+            */
+            var prenex = getPrenex(propQ)[0];
+            var matrix = getPrenex(propQ)[1]
+            if (prenex.length > 0 && /E/.test(prenex[0])) {
                 var idxSet = getAllIndices(prenex,'E');
                 idxSet.forEach(function(obj,num) {
                     var variable = prenex[obj+1];
@@ -1208,20 +1256,11 @@ function validateInput(inputString) {
     
     console.log("Validating "+inputString);
     //var opsMatches = inputString.match(opsRegExp);
-    var m = inputString.match(/[p-tF-JNKCABLM]/);
+    //var m = inputString.match(/[p-tF-JNKCABLM]/);
     // Get the prenex and matrix
-    if (m !== null) {
-        var beginning = inputString.indexOf(m[0]);
-    };
-    if (beginning === 0) {
-        var prenex = null;
-        var matrix = inputString;
-    } else {
-        var prenex = inputString.slice(0, beginning);
-        var matrix = inputString.slice(beginning);
-    };
-    
-    if (prenex === null) {
+    var prenex = getPrenex(inputString)[0];
+    var matrix = getPrenex(inputString)[1];
+    if (prenex === '') {
         console.log('PRENEX NULL');
     } else {
         console.log('PRENEX '+prenex);
@@ -1229,7 +1268,7 @@ function validateInput(inputString) {
             return false;
         };
     };
-    console.log(beginning);
+    //console.log(beginning);
     console.log(matrix);
     if (/[FG]/.test(matrix[0])) {
         return /^[FG][a-eu-z]$/.test(matrix);
@@ -1588,3 +1627,4 @@ function prenexConvertRules(inputString) {
         
 };
 
+//CKExKFxGxVyCGyHyaExHxa
