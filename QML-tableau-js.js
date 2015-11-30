@@ -338,6 +338,7 @@ function tableauObj(parentdiv1) {
                         answer = true;
                     };
                 });
+                /*
                 if (termlist.length === 0) {
                     console.log('empty1');
                     var pnex = getPrenex(obj[1])[0];
@@ -350,12 +351,25 @@ function tableauObj(parentdiv1) {
                         };
                     };
                 };
+                */
+                if (termlist.length === 0) {
+                    console.log("empty3");
+                    var variable = obj[1][1];
+                    var RE = new RegExp(variable,'g');
+                    var result1 = obj[1].slice(2);
+                    var result2 = result1.replace(RE,'a');
+                    var result = [obj[0],result2];
+                    if (!tableHasProp(me.memoryBank, result)) {
+                        answer = true;
+                    };
+                };
             };
         });
         return answer;
     };
     
     this.applyVRules = function() {
+        // Apply universal quantification rules
         console.log("APPLY V RULES");
         var me = this;
         var allProps = '';
@@ -387,16 +401,31 @@ function tableauObj(parentdiv1) {
                         me.toDoArray.push(result);
                     };
                 });
+                /*
                 if (termlist.length === 0) {
                     console.log("empty");
                     var pnex = getPrenex(obj[1])[0];
                     if (/E/.test(pnex.slice(2))) {
-                        if (!tableHasProp(me.memoryBank, ([obj[0],obj[1].slice(2)]))) {
+                        if (!tableHasProp(me.memoryBank, [obj[0],obj[1].slice(2)])) {
                             //me.addArrow();
                             me.addToTable([obj[0],obj[1].slice(2)]);
                             showList.push([obj[0],obj[1].slice(2)]);
                             me.toDoArray.push([obj[0],obj[1].slice(2)]);
                         };
+                    };
+                };
+                */
+                if (termlist.length === 0) {
+                    console.log("empty2");
+                    var variable = obj[1][1];
+                    var RE = new RegExp(variable,'g');
+                    var result1 = obj[1].slice(2);
+                    var result2 = result1.replace(RE,'a');
+                    var result = [obj[0],result2];
+                    if (!tableHasProp(me.memoryBank, result)) {
+                        me.addToTable(result);
+                        showList.push(result);
+                        me.toDoArray.push(result);
                     };
                 };
             };
@@ -470,6 +499,9 @@ function tableauObj(parentdiv1) {
                 this.addArrow();
                 showList.push([idx,propR]);
                 this.addToTable([idx,"E"+propR[2]+"N"+propR.slice(3)]);
+            };
+            if (this.checkClosed()) {
+                return true;
             };
         };
         if (this.checkClosed()) {
@@ -555,7 +587,7 @@ function tableauObj(parentdiv1) {
             do {
                 this.applyNonSplittingRules();
             }
-            while (this.nonSplittingRulesApply(this.toDoArray));
+            while (this.nonSplittingRulesApply(this.toDoArray) && !this.checkClosed());
             
             if (this.checkClosed()) {
                 var newX = document.createElement("TD");
